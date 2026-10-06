@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レセプト</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-slate-100 flex items-center justify-center p-4">
+    <main class="w-full max-w-sm">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <!-- ヘッダー -->
+            <div class="bg-amber-800 px-6 py-6 text-center text-white">
+                <p class="text-xs font-semibold tracking-widest uppercase opacity-80">Receipt</p>
+                <h1 class="mt-1 text-2xl font-bold">Café Bonjour</h1>
+            </div>
+
+            <div class="px-6 py-5">
+                <!-- オーダーコード -->
+                <div class="flex items-center justify-between text-xs text-slate-500">
+                    <span class="font-semibold uppercase tracking-wider">Order code</span>
+                    <span id="order-code" class="font-mono text-sm text-slate-900"></span>
+                </div>
+
+                <!-- 商品 -->
+                <div class="mt-5 border-t border-dashed border-slate-300 pt-5">
+                    <div class="flex items-baseline justify-between">
+                        <span id="item-name" class="text-lg font-semibold text-slate-900"></span>
+                        <span id="price" class="text-slate-700"></span>
+                    </div>
+                    <div class="mt-1 flex items-center justify-between text-sm text-slate-500">
+                        <span>個数</span>
+                        <span>× <span id="quantity" class="font-semibold text-slate-900"></span></span>
+                    </div>
+                </div>
+
+                <!-- 小計・割引 -->
+                <dl class="mt-5 space-y-2 border-t border-dashed border-slate-300 pt-5 text-sm">
+                    <div class="flex justify-between">
+                        <dt class="text-slate-500">小計金額</dt>
+                        <dd id="sub-total-price" class="text-slate-900"></dd>
+                    </div>
+                    <div class="flex justify-between">
+                        <dt class="text-slate-500">割引</dt>
+                        <dd class="font-semibold text-sky-600">− <span id="discount"></span></dd>
+                    </div>
+                </dl>
+
+                <!-- 合計 -->
+                <div class="mt-5 border-t-2 border-slate-900 pt-4">
+                    <div class="flex items-baseline justify-between">
+                        <span class="text-sm font-bold text-slate-700">合計金額</span>
+                        <span id="total-price" class="text-3xl font-bold text-slate-900"></span>
+                    </div>
+                    <dl class="mt-2 space-y-1 text-xs text-slate-500">
+                        <div class="flex justify-between">
+                            <dt>税抜</dt>
+                            <dd id="tax-without-price"></dd>
+                        </div>
+                        <div class="flex justify-between">
+                            <dt>税額</dt>
+                            <dd id="tax"></dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <!-- フッター -->
+            <div class="border-t border-dashed border-slate-300 bg-slate-50 px-6 py-4 text-center text-xs leading-relaxed text-slate-500">
+                お買い上げありがとうございました。<br>
+                またのご来店をお待ちしております。
+            </div>
+        </div>
+    </main>
+    <script src="js/calculate.js"></script>
+</body>
+
+</html>
