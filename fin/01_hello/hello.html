@@ -121,7 +121,72 @@
             </p>
         </section>
 
-        <p class="text-center text-xs text-slate-400">ファイルを修正したら保存して、ブラウザを再読み込みしましょう。</p>
+        <!-- 解説: ブラウザキャッシュのクリア -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">ブラウザキャッシュのクリア</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                ブラウザは一度読み込んだ JS や CSS を保存（<strong>キャッシュ</strong>）します。
+                hello.js を修正して保存しても、<strong>キャッシュに残った修正前のファイルが使われ、変更が反映されない</strong>ことがあります。
+            </p>
+
+            <div class="mt-4 flex flex-col items-stretch gap-2 text-sm sm:flex-row sm:items-center">
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-semibold">hello.js を修正</p>
+                    <p class="text-xs text-slate-500">保存して再読み込み</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-rose-300 bg-rose-50 px-4 py-3 text-center">
+                    <p class="font-semibold text-rose-800">キャッシュの古い JS</p>
+                    <p class="text-xs text-rose-700">変更が反映されない</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-center">
+                    <p class="font-semibold text-emerald-800">スーパーリロード</p>
+                    <p class="text-xs text-emerald-700">最新の JS を読み込み</p>
+                </div>
+            </div>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">方法</th>
+                            <th class="px-4 py-2 font-medium">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="whitespace-nowrap px-4 py-2 align-top">スーパーリロード<br><span class="text-xs text-slate-500">Windows</span></td>
+                            <td class="px-4 py-2 align-top">
+                                <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Ctrl</kbd> + <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Shift</kbd> + <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">R</kbd>
+                                <span class="text-xs text-slate-500">または</span>
+                                <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Ctrl</kbd> + <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">F5</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="whitespace-nowrap px-4 py-2 align-top">スーパーリロード<br><span class="text-xs text-slate-500">Mac</span></td>
+                            <td class="px-4 py-2 align-top">
+                                <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Cmd</kbd> + <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Shift</kbd> + <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">R</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="whitespace-nowrap px-4 py-2 align-top">キャッシュの消去と<br>ハード再読み込み</td>
+                            <td class="px-4 py-2 align-top">DevTools を開いた状態で、再読み込みボタンを右クリック</td>
+                        </tr>
+                        <tr>
+                            <td class="whitespace-nowrap px-4 py-2 align-top">Disable cache</td>
+                            <td class="px-4 py-2 align-top">DevTools の Network タブでチェック（DevTools 表示中はキャッシュ無効）</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                コードを修正したのに動作が変わらないときは、まずキャッシュを疑いましょう。開発中は <strong>Disable cache</strong> にチェックを入れておくと便利です。
+            </p>
+        </section>
+
+        <p class="text-center text-xs text-slate-400">ファイルを修正したら保存して、ブラウザを再読み込みしましょう。反映されないときはスーパーリロード！</p>
     </main>
 
     <!-- HTMLにJSを記述して実行 -->
@@ -133,7 +198,7 @@
 
         // アラート表示
         // コメントアウトで実行されない
-        // alert('Hello JavaScript');
+        alert('Hello JavaScript');
     </script>
 
     <!-- hello.js 読み込み -->

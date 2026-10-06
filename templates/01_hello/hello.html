@@ -9,13 +9,193 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="min-h-screen flex items-center justify-center p-4">
-    <main class="w-full max-w-md">
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+<body class="min-h-screen bg-slate-100 py-10 px-4 text-slate-800">
+    <main class="mx-auto w-full max-w-2xl space-y-6">
 
-        </div>
+        <!-- ヘッダー -->
+        <header class="rounded-2xl bg-sky-600 px-6 py-8 text-white shadow-xl">
+            <p class="text-xs font-semibold uppercase tracking-widest opacity-80">Lesson 01</p>
+            <h1 class="mt-1 text-3xl font-bold">Top Page</h1>
+            <p class="mt-2 text-sm opacity-90">JSファイルを読み込んで、ウィンドウタイトルの変更とコンソール出力を行います。</p>
+        </header>
+
+        <!-- 確認ポイント -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">確認ポイント</h2>
+            <ol class="mt-4 space-y-3">
+                <li class="flex gap-3">
+                    <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">1</span>
+                    <p class="text-sm leading-relaxed">ブラウザのタブに<strong>「はじめてのJavaScript」</strong>と表示されている</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">2</span>
+                    <p class="text-sm leading-relaxed">DevTools の <strong>Console</strong> タブに <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">Hello!</code> と表示されている</p>
+                </li>
+            </ol>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">DevTools の開き方</th>
+                            <th class="px-4 py-2 font-medium">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2">Windows</td>
+                            <td class="px-4 py-2"><kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">F12</kbd></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">Mac</td>
+                            <td class="px-4 py-2">
+                                <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Cmd</kbd> +
+                                <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Option</kbd> +
+                                <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">I</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">共通</td>
+                            <td class="px-4 py-2">ページ上で右クリック →「検証」</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 解説: JSファイルの読み込み -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">JSファイルの読み込み</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                ブラウザは HTML を上から順に解析し、<code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">script</code> タグの
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">src</code> 属性で指定された JS ファイルを読み込んで実行します。
+            </p>
+
+            <div class="mt-4 flex flex-col items-stretch gap-2 text-sm sm:flex-row sm:items-center">
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-semibold">hello.html</p>
+                    <p class="text-xs text-slate-500">上から順に解析</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs font-semibold">&lt;script src&gt;</p>
+                    <p class="text-xs text-slate-500">JSファイルを読み込み</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-center">
+                    <p class="font-semibold text-amber-800">js/hello.js</p>
+                    <p class="text-xs text-amber-700">プログラムを実行</p>
+                </div>
+            </div>
+
+            <pre class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">&lt;!-- hello.js 読み込み --&gt;</span>
+&lt;script src="js/hello.js"&gt;&lt;/script&gt;</code></pre>
+            <p class="mt-2 text-xs text-slate-500">※ hello.js は js フォルダにあるため、パスは <code class="font-mono">js/hello.js</code> になります。</p>
+        </section>
+
+        <!-- 解説: hello.js のコード -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">hello.js で実行していること</h2>
+
+            <div class="mt-4 space-y-5">
+                <div>
+                    <h3 class="text-sm font-semibold">ウィンドウタイトルの変更</h3>
+                    <pre class="mt-2 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code>document.title = "はじめてのJavaScript";</code></pre>
+                    <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                        HTML の <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">&lt;title&gt;Hello JS&lt;/title&gt;</code> が、JavaScript によって書き換わります。
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="text-sm font-semibold">コンソール出力</h3>
+                    <pre class="mt-2 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code>console.log('Hello!');</code></pre>
+                    <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                        <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">console.log()</code> の内容は Web ページには表示されず、DevTools の Console タブに表示されます。
+                        変数の値や処理の流れを確認する<strong>デバッグ</strong>で使います。
+                    </p>
+                </div>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                hello.js には <code class="font-mono">console.error()</code> や <code class="font-mono">console.table()</code> などの例もあります。Console タブで表示の違いを確認してみましょう。
+            </p>
+        </section>
+
+        <!-- 解説: ブラウザキャッシュのクリア -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">ブラウザキャッシュのクリア</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                ブラウザは一度読み込んだ JS や CSS を保存（<strong>キャッシュ</strong>）します。
+                hello.js を修正して保存しても、<strong>キャッシュに残った修正前のファイルが使われ、変更が反映されない</strong>ことがあります。
+            </p>
+
+            <div class="mt-4 flex flex-col items-stretch gap-2 text-sm sm:flex-row sm:items-center">
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-semibold">hello.js を修正</p>
+                    <p class="text-xs text-slate-500">保存して再読み込み</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-rose-300 bg-rose-50 px-4 py-3 text-center">
+                    <p class="font-semibold text-rose-800">キャッシュの古い JS</p>
+                    <p class="text-xs text-rose-700">変更が反映されない</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-center">
+                    <p class="font-semibold text-emerald-800">スーパーリロード</p>
+                    <p class="text-xs text-emerald-700">最新の JS を読み込み</p>
+                </div>
+            </div>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">方法</th>
+                            <th class="px-4 py-2 font-medium">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="whitespace-nowrap px-4 py-2 align-top">スーパーリロード<br><span class="text-xs text-slate-500">Windows</span></td>
+                            <td class="px-4 py-2 align-top">
+                                <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Ctrl</kbd> + <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Shift</kbd> + <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">R</kbd>
+                                <span class="text-xs text-slate-500">または</span>
+                                <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Ctrl</kbd> + <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">F5</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="whitespace-nowrap px-4 py-2 align-top">スーパーリロード<br><span class="text-xs text-slate-500">Mac</span></td>
+                            <td class="px-4 py-2 align-top">
+                                <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Cmd</kbd> + <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Shift</kbd> + <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">R</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="whitespace-nowrap px-4 py-2 align-top">キャッシュの消去と<br>ハード再読み込み</td>
+                            <td class="px-4 py-2 align-top">DevTools を開いた状態で、再読み込みボタンを右クリック</td>
+                        </tr>
+                        <tr>
+                            <td class="whitespace-nowrap px-4 py-2 align-top">Disable cache</td>
+                            <td class="px-4 py-2 align-top">DevTools の Network タブでチェック（DevTools 表示中はキャッシュ無効）</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                コードを修正したのに動作が変わらないときは、まずキャッシュを疑いましょう。開発中は <strong>Disable cache</strong> にチェックを入れておくと便利です。
+            </p>
+        </section>
+
+        <p class="text-center text-xs text-slate-400">ファイルを修正したら保存して、ブラウザを再読み込みしましょう。反映されないときはスーパーリロード！</p>
     </main>
-    <!-- TODO: js/hello.js を読み込み -->
+
+    <!-- HTMLにJSを記述して実行 -->
+    <script>
+        // TODO: アラート表示
+    </script>
+
+    <!-- hello.js 読み込み -->
+    <script src="js/hello.js"></script>
 </body>
 
 </html>
