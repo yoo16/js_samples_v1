@@ -9,43 +9,342 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="min-h-screen flex items-center justify-center p-4">
-    <main class="w-full max-w-md">
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-            <!-- ヘッダー -->
-            <div class="bg-sky-500 px-6 py-8 text-white">
-                <p class="text-xs font-semibold tracking-widest uppercase opacity-80">Product</p>
-                <h1 id="item-name" class="mt-1 text-3xl font-bold"></h1>
+<body class="min-h-screen bg-slate-100 py-10 px-4 text-slate-800">
+    <main class="mx-auto w-full max-w-2xl space-y-6">
+
+        <!-- ヘッダー -->
+        <header class="rounded-2xl bg-sky-600 px-6 py-8 text-white shadow-xl">
+            <p class="text-xs font-semibold uppercase tracking-widest opacity-80">Lesson 02</p>
+            <h1 class="mt-1 text-3xl font-bold">変数と定数</h1>
+            <p class="mt-2 text-sm opacity-90">変数に商品データを保存して、コンソールと Web ページに表示します。</p>
+        </header>
+
+        <!-- 実行結果: 商品カード -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">実行結果</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                変数に代入した値が、下のカードに表示されます。
+            </p>
+
+            <div class="mx-auto mt-4 max-w-md overflow-hidden rounded-2xl border border-slate-200">
+                <div class="bg-sky-500 px-6 py-6 text-white">
+                    <p class="text-xs font-semibold uppercase tracking-widest opacity-80">Product</p>
+                    <h3 id="item-name" class="mt-1 min-h-9 text-3xl font-bold"></h3>
+                </div>
+
+                <dl class="divide-y divide-slate-100">
+                    <div class="flex items-center justify-between px-6 py-4">
+                        <dt class="text-sm font-medium text-slate-500">価格 <code class="ml-1 font-mono text-xs text-slate-400">price</code></dt>
+                        <dd class="text-xl font-semibold text-slate-900">
+                            <span id="price"></span><span class="ml-1 text-sm font-normal text-slate-500">円</span>
+                        </dd>
+                    </div>
+
+                    <div class="flex items-center justify-between px-6 py-4">
+                        <dt class="text-sm font-medium text-slate-500">個数 <code class="ml-1 font-mono text-xs text-slate-400">quantity</code></dt>
+                        <dd class="text-xl font-semibold text-slate-900">
+                            <span id="quantity"></span><span class="ml-1 text-sm font-normal text-slate-500">個</span>
+                        </dd>
+                    </div>
+
+                    <div class="flex items-center justify-between px-6 py-4">
+                        <dt class="text-sm font-medium text-slate-500">割引率 <code class="ml-1 font-mono text-xs text-slate-400">discount</code></dt>
+                        <dd id="discount" class="rounded-full bg-rose-50 px-3 py-1 text-base font-semibold text-rose-600"></dd>
+                    </div>
+
+                    <div class="flex items-center justify-between px-6 py-4">
+                        <dt class="text-sm font-medium text-slate-500">税率 <code class="ml-1 font-mono text-xs text-slate-400">TAX_RATE</code></dt>
+                        <dd id="tax-rate" class="rounded-full bg-emerald-50 px-3 py-1 text-base font-semibold text-emerald-600"></dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
+
+        <!-- 確認ポイント -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">確認ポイント</h2>
+            <ol class="mt-4 space-y-3">
+                <li class="flex gap-3">
+                    <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">1</span>
+                    <p class="text-sm leading-relaxed">DevTools の <strong>Console</strong> タブに、<strong>再代入後</strong>の商品名が表示されている</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">2</span>
+                    <p class="text-sm leading-relaxed">商品カードに、商品名・価格・個数・割引率が表示されている</p>
+                </li>
+                <li class="flex gap-3">
+                    <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">3</span>
+                    <p class="text-sm leading-relaxed">税率に <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">const</code> で定義した定数の値が表示されている</p>
+                </li>
+            </ol>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">DevTools の開き方</th>
+                            <th class="px-4 py-2 font-medium">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2">Windows</td>
+                            <td class="px-4 py-2"><kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">F12</kbd></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">Mac</td>
+                            <td class="px-4 py-2">
+                                <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Cmd</kbd> +
+                                <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Option</kbd> +
+                                <kbd class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">I</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">共通</td>
+                            <td class="px-4 py-2">ページ上で右クリック →「検証」</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-2 text-xs text-slate-500">※ DevTools を開いたら、上部のタブから <strong>Console</strong> を選びます。</p>
+        </section>
+
+        <!-- 解説: 変数とは -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">変数とは</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                <strong>変数</strong>は、データに名前を付けて保存しておく<strong>箱</strong>です。
+                箱の名前（<strong>変数名</strong>）を書くだけで、中のデータ（<strong>値</strong>）を何度でも取り出して使えます。
+            </p>
+
+            <div class="mt-4 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
+                <div class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">itemName</p>
+                    <p class="mt-1 font-semibold">"コーラ"</p>
+                </div>
+                <div class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">price</p>
+                    <p class="mt-1 font-semibold">150</p>
+                </div>
+                <div class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">quantity</p>
+                    <p class="mt-1 font-semibold">3</p>
+                </div>
+                <div class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">discount</p>
+                    <p class="mt-1 font-semibold">0</p>
+                </div>
             </div>
 
-            <!-- 詳細 -->
-            <dl class="divide-y divide-slate-100">
-                <div class="flex items-center justify-between px-6 py-4">
-                    <dt class="text-sm font-medium text-slate-500">価格</dt>
-                    <dd class="text-xl font-semibold text-slate-900">
-                        <span id="price"></span><span class="ml-1 text-sm font-normal text-slate-500">円</span>
-                    </dd>
-                </div>
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">データの種類</th>
+                            <th class="px-4 py-2 font-medium">書き方</th>
+                            <th class="px-4 py-2 font-medium">例</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2">文字列</td>
+                            <td class="px-4 py-2">" " または ' ' で囲む</td>
+                            <td class="px-4 py-2 font-mono text-xs">"コーラ"</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">数値</td>
+                            <td class="px-4 py-2">そのまま書く</td>
+                            <td class="px-4 py-2 font-mono text-xs">150, 0.05</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="mt-2 text-xs text-slate-500">※ <code class="font-mono">"150"</code> のように引用符で囲むと、数値ではなく文字列になります。</p>
+        </section>
 
-                <div class="flex items-center justify-between px-6 py-4">
-                    <dt class="text-sm font-medium text-slate-500">個数</dt>
-                    <dd class="text-xl font-semibold text-slate-900">
-                        <span id="quantity"></span><span class="ml-1 text-sm font-normal text-slate-500">個</span>
-                    </dd>
-                </div>
+        <!-- 解説: 宣言と代入 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">変数の宣言と代入</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                変数を作ることを<strong>宣言</strong>、値を入れることを<strong>代入</strong>といいます。
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">=</code> は「等しい」ではなく、<strong>右の値を左の変数に入れる</strong>という意味です。
+            </p>
 
-                <div class="flex items-center justify-between px-6 py-4">
-                    <dt class="text-sm font-medium text-slate-500">割引率</dt>
-                    <dd id="discount" class="rounded-full bg-rose-50 px-3 py-1 text-base font-semibold text-rose-600"></dd>
-                </div>
+            <pre class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">// 宣言と同時に代入（初期化）</span>
+<span class="text-sky-300">var</span> price = <span class="text-amber-300">150</span>;</code></pre>
 
-                <div class="flex items-center justify-between px-6 py-4">
-                    <dt class="text-sm font-medium text-slate-500">税率</dt>
-                    <dd id="tax-rate" class="rounded-full bg-emerald-50 px-3 py-1 text-base font-semibold text-emerald-600"></dd>
+            <div class="mt-4 flex flex-col items-stretch gap-2 text-sm sm:flex-row sm:items-center">
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs font-semibold">var</p>
+                    <p class="text-xs text-slate-500">変数を宣言</p>
                 </div>
-            </dl>
-        </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs font-semibold">price</p>
+                    <p class="text-xs text-slate-500">変数名</p>
+                </div>
+                <span class="text-center text-slate-400">←</span>
+                <div class="flex-1 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs font-semibold text-amber-800">= 150</p>
+                    <p class="text-xs text-amber-700">値を代入</p>
+                </div>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                文の終わりには <code class="font-mono">;</code>（セミコロン）を付けましょう。省略しても動くことが多いですが、付けておくと文の区切りがはっきりします。
+            </p>
+        </section>
+
+        <!-- 解説: 再代入 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">再代入</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                宣言済みの変数には、新しい値を入れ直せます（<strong>再代入</strong>）。古い値は上書きされて消えます。
+                再代入するときは <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">var</code> を<strong>付けません</strong>。
+            </p>
+
+            <pre class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">var</span> itemName = <span class="text-emerald-300">"コーラ"</span>;
+itemName = <span class="text-emerald-300">"オレンジジュース"</span>;  <span class="text-slate-500">// 再代入</span>
+
+console.log(itemName);  <span class="text-slate-500">// オレンジジュース</span></code></pre>
+
+            <div class="mt-4 flex flex-col items-stretch gap-2 text-sm sm:flex-row sm:items-center">
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">itemName</p>
+                    <p class="font-semibold text-slate-400 line-through">"コーラ"</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs text-emerald-700">itemName</p>
+                    <p class="font-semibold text-emerald-800">"オレンジジュース"</p>
+                </div>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                プログラムは上から順に実行されます。<code class="font-mono">console.log()</code> の位置によって、表示される値が変わることを確認してみましょう。
+            </p>
+        </section>
+
+        <!-- 解説: 定数 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">定数</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">const</code> で宣言すると<strong>定数</strong>になり、再代入できなくなります。
+                税率のように、プログラムの途中で変わってはいけない値に使います。
+            </p>
+
+            <pre class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">const</span> TAX_RATE = <span class="text-amber-300">0.1</span>;
+TAX_RATE = <span class="text-amber-300">0.08</span>;  <span class="text-rose-300">// エラー: Assignment to constant variable.</span></code></pre>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">キーワード</th>
+                            <th class="px-4 py-2 font-medium">再代入</th>
+                            <th class="px-4 py-2 font-medium">用途</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">var</td>
+                            <td class="px-4 py-2">できる</td>
+                            <td class="px-4 py-2">古くからある変数の宣言</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">let</td>
+                            <td class="px-4 py-2">できる</td>
+                            <td class="px-4 py-2">現在主流の変数の宣言</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">const</td>
+                            <td class="px-4 py-2 text-rose-600">できない</td>
+                            <td class="px-4 py-2">定数の宣言</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 解説: 命名ルール -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">名前の付け方</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                変数名は、中身がわかる英単語で付けます。複数の単語をつなげるときは、書き方のルールに合わせます。
+            </p>
+
+            <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">書き方</th>
+                            <th class="px-4 py-2 font-medium">例</th>
+                            <th class="px-4 py-2 font-medium">対象</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2">キャメルケース</td>
+                            <td class="px-4 py-2 font-mono text-xs">itemName</td>
+                            <td class="px-4 py-2">変数</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">大文字スネークケース</td>
+                            <td class="px-4 py-2 font-mono text-xs">TAX_RATE</td>
+                            <td class="px-4 py-2">定数</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <ul class="mt-4 space-y-1 text-sm leading-relaxed text-slate-600">
+                <li>・ 使える文字は英数字、<code class="font-mono">_</code>、<code class="font-mono">$</code></li>
+                <li>・ 数字から始めることはできない（<code class="font-mono text-rose-600">1item</code> は NG）</li>
+                <li>・ 大文字と小文字は区別される（<code class="font-mono">price</code> と <code class="font-mono">Price</code> は別物）</li>
+                <li>・ <code class="font-mono">var</code> や <code class="font-mono">const</code> などの予約語は使えない</li>
+            </ul>
+        </section>
+
+        <!-- 解説: HTML表示 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">変数の値を HTML に表示</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">document.getElementById()</code> で id を指定して要素を取得し、
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">textContent</code> に変数を代入すると、その要素の中身が書き換わります。
+            </p>
+
+            <pre class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">&lt;!-- HTML --&gt;</span>
+&lt;span id=<span class="text-emerald-300">"price"</span>&gt;&lt;/span&gt;
+
+<span class="text-slate-500">// JavaScript</span>
+document.getElementById(<span class="text-emerald-300">"price"</span>).textContent = price;</code></pre>
+
+            <div class="mt-4 flex flex-col items-stretch gap-2 text-sm sm:flex-row sm:items-center">
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs font-semibold">getElementById("price")</p>
+                    <p class="text-xs text-slate-500">id で要素を取得</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs font-semibold">.textContent = price</p>
+                    <p class="text-xs text-slate-500">変数の値を代入</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-center">
+                    <p class="font-semibold text-amber-800">ページに表示</p>
+                    <p class="text-xs text-amber-700">要素の中身が書き換わる</p>
+                </div>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                id は HTML と JS で<strong>1文字でも違うと取得できません</strong>。表示されないときは、id のスペルと Console のエラーを確認しましょう。
+            </p>
+        </section>
+
+        <p class="text-center text-xs text-slate-400">ファイルを修正したら保存して、ブラウザを再読み込みしましょう。反映されないときはスーパーリロード！</p>
     </main>
+
+    <!-- variable.js 読み込み -->
     <script src="js/variable.js"></script>
 </body>
 

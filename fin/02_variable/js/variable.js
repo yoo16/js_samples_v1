@@ -22,20 +22,20 @@ price = 200;
 quantity = 5;
 discount = 0.05;
 
-// TODO: 商品名をHTML表示: itemName を代入
-document.getElementById("item-name").innerHTML = itemName
+// TODO: 商品名を表示: itemName を代入
+document.getElementById("item-name").textContent = itemName
 
-// TODO: 価格をHTML表示: price を代入
-document.getElementById("price").innerHTML = price
+// TODO: 価格を表示: price を代入
+document.getElementById("price").textContent = price
 
-// TODO: 個数をHTML表示: quantity を代入
-document.getElementById("quantity").innerHTML = quantity
+// TODO: 個数を表示: quantity を代入
+document.getElementById("quantity").textContent = quantity
 
-// TODO: 割引をHTML表示: discount を代入
-document.getElementById("discount").innerHTML = discount
+// TODO: 割引を表示: discount を代入
+document.getElementById("discount").textContent = discount
 
 // TODO: 定数定義 税率「TAX_RATE」
 const TAX_RATE = 0.1;
 
-// TODO: 税率をHTML表示: TAX_RATE を代入
-document.getElementById("tax-rate").innerHTML = TAX_RATE
+// TODO: 税率を表示: TAX_RATE を代入
+document.getElementById("tax-rate").textContent = TAX_RATE
