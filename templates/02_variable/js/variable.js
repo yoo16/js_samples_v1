@@ -1,17 +1,17 @@
-// TODO: 変数定義 商品名「itemName」
+// TODO: 変数定義 商品名「itemName」: var または let で定義
 
-// TODO: 変数定義 価格「price」
+// TODO: 変数定義 価格「price」: var または let で定義
 
-// TODO: 変数定義 個数「quantity」
+// TODO: 変数定義 個数「quantity」: var または let で定義
 
-// TODO: 変数定義 割引「discount」
+// TODO: 変数定義 割引「discount」: var または let で定義
 
 // TODO: itemName に再代入
 
-// TODO: 商品名をコンソール表示
+// TODO: 商品名をコンソール表示: console.log(itemName)
 // clg
 
-// TODO: 価格, 個数, 割引
+// TODO: 価格, 個数, 割引 をコンソール表示: console.log(price, quantity, discount)
 
 // TODO: 商品名を表示: itemName を代入
 document.getElementById("item-name").textContent
@@ -25,7 +25,7 @@ document.getElementById("quantity").textContent
 // TODO: 割引を表示: discount を代入
 document.getElementById("discount").textContent
 
-// TODO: 定数定義 税率「TAX_RATE」
+// TODO: 定数定義 税率「TAX_RATE」: const で定義
 
 // TODO: 税率を表示: TAX_RATE
 document.getElementById("tax-rate").textContent

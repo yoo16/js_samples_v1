@@ -29,16 +29,6 @@ var discount = 0;
 // TODO: 税額 = 合計金額 - 税抜き金額: tax
 
 
-// HTML表示
-document.getElementById('item-name').innerHTML = itemName;
-document.getElementById('price').innerHTML = `&yen;${price}`;
-document.getElementById('quantity').innerHTML = quantity;
-document.getElementById('discount').innerHTML = `&yen;${discount}`;
-document.getElementById('sub-total-price').innerHTML = `&yen;${subTotalPrice}`;
-document.getElementById('total-price').innerHTML = `&yen;${totalPrice}`;
-document.getElementById('tax').innerHTML = `&yen;${tax}`;
-document.getElementById('tax-without-price').innerHTML = `&yen;${taxWithoutPrice}`;
-
 // オーダーコード
 var tableNo = 3;
 var orderNo = 20341;
@@ -47,4 +37,15 @@ var orderNo = 20341;
 var orderCode;
 
 // TODO: オーダーコード生成（テキスト連結） xx-xxxx 形式
-document.getElementById('order-code').innerHTML = orderCode;
+// orderCode = `${tableNo}-${orderNo}`;
+
+// HTML表示
+document.getElementById('item-name').textContent = itemName;
+document.getElementById('price').textContent = `¥${price}`;
+document.getElementById('quantity').textContent = quantity;
+document.getElementById('discount').textContent = `¥${discount}`;
+document.getElementById('sub-total-price').textContent = `¥${subTotalPrice}`;
+document.getElementById('total-price').textContent = `¥${totalPrice}`;
+document.getElementById('tax').textContent = `¥${tax}`;
+document.getElementById('tax-without-price').textContent = `¥${taxWithoutPrice}`;
+document.getElementById('order-code').textContent = orderCode;

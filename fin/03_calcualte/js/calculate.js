@@ -15,36 +15,43 @@ var isMember = true
 var discount = 0;
 
 // TODO: 個数 quantity を増減
+quantity++;
 
 // TODO: 小計金額計算: subTotalPrice
+subTotalPrice = price * quantity;
 
 // TODO: 三項演算子を使って割引額を設定: discount
+discount = isMember ? subTotalPrice * 0.1 : 0;
 
 // TODO: 合計金額 = 小計金額 - 割引: totalPrice
+totalPrice = subTotalPrice - discount;
 
 // TODO: 税抜き金額 = 合計金額 / (1 + 税率): taxWithoutPrice
+taxWithoutPrice = totalPrice / (1 + TAX_RATE);
 
 // TODO: 税抜き金額を四捨五入: toFixed()
+taxWithoutPrice = Number(taxWithoutPrice.toFixed(0));
 
 // TODO: 税額 = 合計金額 - 税抜き金額: tax
-
-
-// HTML表示
-document.getElementById('item-name').innerHTML = itemName;
-document.getElementById('price').innerHTML = `&yen;${price}`;
-document.getElementById('quantity').innerHTML = quantity;
-document.getElementById('discount').innerHTML = `&yen;${discount}`;
-document.getElementById('sub-total-price').innerHTML = `&yen;${subTotalPrice}`;
-document.getElementById('total-price').innerHTML = `&yen;${totalPrice}`;
-document.getElementById('tax').innerHTML = `&yen;${tax}`;
-document.getElementById('tax-without-price').innerHTML = `&yen;${taxWithoutPrice}`;
+tax = totalPrice - taxWithoutPrice;
 
 // オーダーコード
 var tableNo = 3;
 var orderNo = 20341;
 
 // TODO: オーダーコード生成（数値連結）※ 注意)文字列連結ではない
-var orderCode;
+var orderCode = tableNo * 100000 + orderNo;
 
 // TODO: オーダーコード生成（テキスト連結） xx-xxxx 形式
-document.getElementById('order-code').innerHTML = orderCode;
+orderCode = `${tableNo}-${orderNo}`;
+
+// HTML表示
+document.getElementById('item-name').textContent = itemName;
+document.getElementById('price').textContent = `¥${price}`;
+document.getElementById('quantity').textContent = quantity;
+document.getElementById('discount').textContent = `¥${discount}`;
+document.getElementById('sub-total-price').textContent = `¥${subTotalPrice}`;
+document.getElementById('total-price').textContent = `¥${totalPrice}`;
+document.getElementById('tax').textContent = `¥${tax}`;
+document.getElementById('tax-without-price').textContent = `¥${taxWithoutPrice}`;
+document.getElementById('order-code').textContent = orderCode;

@@ -9,72 +9,408 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="min-h-screen bg-slate-100 flex items-center justify-center p-4">
-    <main class="w-full max-w-sm">
-        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-            <!-- ヘッダー -->
-            <div class="bg-amber-800 px-6 py-6 text-center text-white">
-                <p class="text-xs font-semibold tracking-widest uppercase opacity-80">Receipt</p>
-                <h1 class="mt-1 text-2xl font-bold">Café Bonjour</h1>
-            </div>
+<body class="min-h-screen bg-white px-4 text-slate-800">
+    <main class="mx-auto w-full max-w-2xl space-y-6">
 
-            <div class="px-6 py-5">
-                <!-- オーダーコード -->
-                <div class="flex items-center justify-between text-xs text-slate-500">
-                    <span class="font-semibold uppercase tracking-wider">Order code</span>
-                    <span id="order-code" class="font-mono text-sm text-slate-900"></span>
+        <!-- ヘッダー -->
+        <header class="rounded-2xl bg-sky-600 px-6 py-8 text-white shadow-xl">
+            <p class="text-xs font-semibold uppercase tracking-widest opacity-80">Lesson 03</p>
+            <h1 class="mt-1 text-3xl font-bold">演算子と計算</h1>
+            <p class="mt-2 text-sm opacity-90">演算子を使って金額を計算し、レシートに表示します。</p>
+        </header>
+
+        <!-- 実行結果: レシート -->
+        <section class="">
+            <div class="mx-auto mt-4 max-w-sm overflow-hidden rounded-2xl border border-slate-200">
+                <!-- レシート: ヘッダー -->
+                <div class="bg-amber-800 px-6 py-6 text-center text-white">
+                    <p class="text-xs font-semibold tracking-widest uppercase opacity-80">Receipt</p>
+                    <h3 class="mt-1 text-2xl font-bold">Café Bonjour</h3>
                 </div>
 
-                <!-- 商品 -->
-                <div class="mt-5 border-t border-dashed border-slate-300 pt-5">
-                    <div class="flex items-baseline justify-between">
-                        <span id="item-name" class="text-lg font-semibold text-slate-900"></span>
-                        <span id="price" class="text-slate-700"></span>
+                <div class="px-6 py-5">
+                    <!-- オーダーコード -->
+                    <div class="flex items-center justify-between text-xs text-slate-500">
+                        <span class="font-semibold uppercase tracking-wider">Order code</span>
+                        <span id="order-code" class="font-mono text-sm text-slate-900"></span>
                     </div>
-                    <div class="mt-1 flex items-center justify-between text-sm text-slate-500">
-                        <span>個数</span>
-                        <span>× <span id="quantity" class="font-semibold text-slate-900"></span></span>
-                    </div>
-                </div>
 
-                <!-- 小計・割引 -->
-                <dl class="mt-5 space-y-2 border-t border-dashed border-slate-300 pt-5 text-sm">
-                    <div class="flex justify-between">
-                        <dt class="text-slate-500">小計金額</dt>
-                        <dd id="sub-total-price" class="text-slate-900"></dd>
+                    <!-- 商品 -->
+                    <div class="mt-5 border-t border-dashed border-slate-300 pt-5">
+                        <div class="flex items-baseline justify-between">
+                            <span id="item-name" class="text-lg font-semibold text-slate-900"></span>
+                            <span id="price" class="text-slate-700"></span>
+                        </div>
+                        <div class="mt-1 flex items-center justify-between text-sm text-slate-500">
+                            <span>個数</span>
+                            <span>× <span id="quantity" class="font-semibold text-slate-900"></span></span>
+                        </div>
                     </div>
-                    <div class="flex justify-between">
-                        <dt class="text-slate-500">割引</dt>
-                        <dd class="font-semibold text-sky-600">− <span id="discount"></span></dd>
-                    </div>
-                </dl>
 
-                <!-- 合計 -->
-                <div class="mt-5 border-t-2 border-slate-900 pt-4">
-                    <div class="flex items-baseline justify-between">
-                        <span class="text-sm font-bold text-slate-700">合計金額</span>
-                        <span id="total-price" class="text-3xl font-bold text-slate-900"></span>
-                    </div>
-                    <dl class="mt-2 space-y-1 text-xs text-slate-500">
+                    <!-- 小計・割引 -->
+                    <dl class="mt-5 space-y-2 border-t border-dashed border-slate-300 pt-5 text-sm">
                         <div class="flex justify-between">
-                            <dt>税抜</dt>
-                            <dd id="tax-without-price"></dd>
+                            <dt class="text-slate-500">小計金額</dt>
+                            <dd id="sub-total-price" class="text-slate-900"></dd>
                         </div>
                         <div class="flex justify-between">
-                            <dt>税額</dt>
-                            <dd id="tax"></dd>
+                            <dt class="text-slate-500">割引</dt>
+                            <dd class="font-semibold text-sky-600">− <span id="discount"></span></dd>
                         </div>
                     </dl>
+
+                    <!-- 合計 -->
+                    <div class="mt-5 border-t-2 border-slate-900 pt-4">
+                        <div class="flex items-baseline justify-between">
+                            <span class="text-sm font-bold text-slate-700">合計金額</span>
+                            <span id="total-price" class="text-3xl font-bold text-slate-900"></span>
+                        </div>
+                        <dl class="mt-2 space-y-1 text-xs text-slate-500">
+                            <div class="flex justify-between">
+                                <dt>税抜</dt>
+                                <dd id="tax-without-price"></dd>
+                            </div>
+                            <div class="flex justify-between">
+                                <dt>税額</dt>
+                                <dd id="tax"></dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+
+                <!-- レシート: フッター -->
+                <div
+                    class="border-t border-dashed border-slate-300 bg-slate-50 px-6 py-4 text-center text-xs leading-relaxed text-slate-500">
+                    お買い上げありがとうございました。<br>
+                    またのご来店をお待ちしております。
+                </div>
+            </div>
+        </section>
+
+        <!-- 解説: 計算の流れ -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">計算の流れ</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                プログラムは<strong>上から順に</strong>実行されます。前の計算結果を変数に保存し、次の計算で使っていきます。
+            </p>
+
+            <div class="mt-4 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
+                <div class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">quantity</p>
+                    <p class="mt-1 font-semibold">2 → 3</p>
+                    <p class="text-xs text-slate-500">個数を +1</p>
+                </div>
+                <div class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">subTotalPrice</p>
+                    <p class="mt-1 font-semibold">1500</p>
+                    <p class="text-xs text-slate-500">500 × 3</p>
+                </div>
+                <div class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">discount</p>
+                    <p class="mt-1 font-semibold">150</p>
+                    <p class="text-xs text-slate-500">会員なので 10%</p>
+                </div>
+                <div class="rounded-xl border border-amber-300 bg-amber-50 px-3 py-3 text-center">
+                    <p class="font-mono text-xs text-amber-700">totalPrice</p>
+                    <p class="mt-1 font-semibold text-amber-800">1350</p>
+                    <p class="text-xs text-amber-700">1500 − 150</p>
+                </div>
+                <div class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">taxWithoutPrice</p>
+                    <p class="mt-1 font-semibold">1227</p>
+                    <p class="text-xs text-slate-500">1350 ÷ 1.1</p>
+                </div>
+                <div class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">tax</p>
+                    <p class="mt-1 font-semibold">123</p>
+                    <p class="text-xs text-slate-500">1350 − 1227</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 解説: 算術演算子 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">算術演算子</h2>
+            <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">演算子</th>
+                            <th class="px-4 py-2 font-medium">意味</th>
+                            <th class="px-4 py-2 font-medium">例</th>
+                            <th class="px-4 py-2 font-medium">結果</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">+</td>
+                            <td class="px-4 py-2">足し算</td>
+                            <td class="px-4 py-2 font-mono text-xs">5 + 2</td>
+                            <td class="px-4 py-2 font-mono text-xs">7</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">-</td>
+                            <td class="px-4 py-2">引き算</td>
+                            <td class="px-4 py-2 font-mono text-xs">5 - 2</td>
+                            <td class="px-4 py-2 font-mono text-xs">3</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">*</td>
+                            <td class="px-4 py-2">掛け算</td>
+                            <td class="px-4 py-2 font-mono text-xs">5 * 2</td>
+                            <td class="px-4 py-2 font-mono text-xs">10</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">/</td>
+                            <td class="px-4 py-2">割り算</td>
+                            <td class="px-4 py-2 font-mono text-xs">7 / 2</td>
+                            <td class="px-4 py-2 font-mono text-xs">3.5</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">%</td>
+                            <td class="px-4 py-2">割り算の余り</td>
+                            <td class="px-4 py-2 font-mono text-xs">7 % 2</td>
+                            <td class="px-4 py-2 font-mono text-xs">1</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">**</td>
+                            <td class="px-4 py-2">べき乗</td>
+                            <td class="px-4 py-2 font-mono text-xs">2 ** 3</td>
+                            <td class="px-4 py-2 font-mono text-xs">8</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">// 小計金額 = 価格 × 個数</span>
+subTotalPrice = price * quantity;          <span class="text-slate-500">// 500 * 3 → 1500</span>
+
+<span class="text-slate-500">// 合計金額 = 小計金額 - 割引</span>
+totalPrice = subTotalPrice - discount;     <span class="text-slate-500">// 1500 - 150 → 1350</span>
+
+<span class="text-slate-500">// 税抜き金額 = 合計金額 / (1 + 税率)</span>
+taxWithoutPrice = totalPrice / (<span class="text-amber-300">1</span> + TAX_RATE); <span class="text-slate-500">// 1350 / 1.1</span></code></pre>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                算数と同じく、<code class="font-mono">*</code> と <code class="font-mono">/</code> は <code
+                    class="font-mono">+</code> と <code class="font-mono">-</code> より先に計算されます。先に計算したい部分は <code
+                    class="font-mono">( )</code> で囲みます。<code class="font-mono">totalPrice / 1 + TAX_RATE</code>
+                と書くと「1350 ÷ 1 + 0.1」になってしまいます。
+            </p>
+        </section>
+
+        <!-- 解説: インクリメント -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">インクリメントとデクリメント</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">++</code> は変数の値を
+                <strong>1 増やす</strong>（インクリメント）、<code
+                    class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">--</code> は <strong>1
+                    減らす</strong>（デクリメント）演算子です。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code>quantity++;  <span class="text-slate-500">// quantity = quantity + 1 と同じ → 3</span></code></pre>
+
+            <div class="mt-4 flex flex-col items-stretch gap-2 text-sm sm:flex-row sm:items-center">
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">quantity</p>
+                    <p class="font-semibold text-slate-400 line-through">2</p>
+                </div>
+                <span class="text-center text-slate-400">→ ++ →</span>
+                <div class="flex-1 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs text-emerald-700">quantity</p>
+                    <p class="font-semibold text-emerald-800">3</p>
                 </div>
             </div>
 
-            <!-- フッター -->
-            <div class="border-t border-dashed border-slate-300 bg-slate-50 px-6 py-4 text-center text-xs leading-relaxed text-slate-500">
-                お買い上げありがとうございました。<br>
-                またのご来店をお待ちしております。
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">短い書き方</th>
+                            <th class="px-4 py-2 font-medium">同じ意味</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">quantity++</td>
+                            <td class="px-4 py-2 font-mono text-xs">quantity = quantity + 1</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">quantity--</td>
+                            <td class="px-4 py-2 font-mono text-xs">quantity = quantity - 1</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">quantity += 5</td>
+                            <td class="px-4 py-2 font-mono text-xs">quantity = quantity + 5</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-        </div>
+        </section>
+
+        <!-- 解説: 三項演算子 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">三項演算子</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                <strong>三項演算子</strong>は、条件が <code
+                    class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">true</code> か <code
+                    class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">false</code>
+                かによって、2つの値のどちらかを選びます。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">// 条件 ? true のときの値 : false のときの値</span>
+discount = isMember ? subTotalPrice * <span class="text-amber-300">0.1</span> : <span class="text-amber-300">0</span>;</code></pre>
+
+            <div class="mt-4 flex flex-col items-stretch gap-2 text-sm sm:flex-row sm:items-center">
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs font-semibold">isMember ?</p>
+                    <p class="text-xs text-slate-500">会員かどうか</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs font-semibold text-emerald-800">true → 1500 * 0.1</p>
+                    <p class="text-xs text-emerald-700">割引 150 円</p>
+                </div>
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs font-semibold">false → 0</p>
+                    <p class="text-xs text-slate-500">割引なし</p>
+                </div>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                <code class="font-mono">var isMember = false;</code> に変えて再読み込みすると、割引が ¥0 になることを確認してみましょう。
+            </p>
+        </section>
+
+        <!-- 解説: 四捨五入 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">四捨五入: toFixed()</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                1350 ÷ 1.1 は <strong>1227.2727…</strong> と割り切れません。
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">toFixed(桁数)</code>
+                は、指定した小数点以下の桁数で<strong>四捨五入</strong>します。<code
+                    class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">toFixed(0)</code> なら整数になります。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code>taxWithoutPrice = taxWithoutPrice.toFixed(<span class="text-amber-300">0</span>));</code></pre>
+
+            <div class="mt-4 flex flex-col items-stretch gap-2 text-sm sm:flex-row sm:items-center">
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-semibold">1227.2727…</p>
+                    <p class="text-xs text-slate-500">数値</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-rose-300 bg-rose-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs font-semibold text-rose-800">.toFixed(0) → "1227"</p>
+                    <p class="text-xs text-rose-700">文字列になる</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs font-semibold text-emerald-800">Number() → 1227</p>
+                    <p class="text-xs text-emerald-700">数値に戻す</p>
+                </div>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                <code class="font-mono">toFixed()</code> の結果は<strong>文字列</strong>です。このあと <code
+                    class="font-mono">tax = totalPrice - taxWithoutPrice</code> と計算に使うので、<code
+                    class="font-mono">Number()</code> で数値に変換しておきます。
+            </p>
+        </section>
+
+        <!-- 解説: 数値の計算と文字列の連結 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">数値の計算と文字列の連結</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">+</code>
+                は、数値どうしなら<strong>足し算</strong>、文字列が含まれると<strong>連結</strong>になります。
+                テーブル番号 3 と注文番号 20341 からオーダーコードを作ってみます。
+            </p>
+
+            <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">コード</th>
+                            <th class="px-4 py-2 font-medium">結果</th>
+                            <th class="px-4 py-2 font-medium">説明</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">3 + 20341</td>
+                            <td class="px-4 py-2 font-mono text-xs text-rose-600">20344</td>
+                            <td class="px-4 py-2">数値の足し算</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">"3" + "20341"</td>
+                            <td class="px-4 py-2 font-mono text-xs">"320341"</td>
+                            <td class="px-4 py-2">文字列の連結</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">3 * 100000 + 20341</td>
+                            <td class="px-4 py-2 font-mono text-xs">320341</td>
+                            <td class="px-4 py-2">桁をずらして足す（数値）</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">`${3}-${20341}`</td>
+                            <td class="px-4 py-2 font-mono text-xs">"3-20341"</td>
+                            <td class="px-4 py-2">テンプレートリテラル（文字列）</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">// 数値のまま連結: 3 を 100000 倍して 5 桁ずらす</span>
+<span class="text-sky-300">var</span> orderCode = tableNo * <span class="text-amber-300">100000</span> + orderNo;  <span class="text-slate-500">// 320341</span>
+
+<span class="text-slate-500">// テンプレートリテラルで xx-xxxx 形式の文字列に</span>
+orderCode = <span class="text-emerald-300">`${tableNo}-${orderNo}`</span>;          <span class="text-slate-500">// "3-20341"</span></code></pre>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                テンプレートリテラルは <code class="font-mono">` `</code>（バッククォート）で囲み、<code
+                    class="font-mono">${変数}</code> の部分に変数の値が埋め込まれます。
+                レシートの <code class="font-mono">`¥${price}`</code> も同じ書き方です。
+            </p>
+        </section>
+
+        <!-- 確認ポイント -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">確認ポイント</h2>
+            <p class="my-2 text-sm text-slate-400">ファイルを修正したら保存して、ブラウザを再読み込みしましょう。反映されないときはスーパーリロード！</p>
+            <ol class="mt-4 space-y-3">
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">1</span>
+                    <p class="text-sm leading-relaxed">個数が <strong>3</strong>、小計金額が <strong>¥1500</strong> になっている</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">2</span>
+                    <p class="text-sm leading-relaxed">割引が <strong>¥150</strong>、合計金額が <strong>¥1350</strong> になっている</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">3</span>
+                    <p class="text-sm leading-relaxed">税抜が <strong>¥1227</strong>（小数なし）、税額が <strong>¥123</strong>
+                        になっている</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">4</span>
+                    <p class="text-sm leading-relaxed">オーダーコードが <strong>3-20341</strong> になっている</p>
+                </li>
+            </ol>
+        </section>
     </main>
+
+    <!-- calculate.js 読み込み -->
     <script src="js/calculate.js"></script>
 </body>
 
