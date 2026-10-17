@@ -9,7 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="min-h-screen bg-slate-100 py-10 px-4 text-slate-800">
+<body class="min-h-screen bg-white py-10 px-4 text-slate-800">
     <main class="mx-auto w-full max-w-2xl space-y-6">
 
         <!-- ヘッダー -->
@@ -17,15 +17,11 @@
             <p class="text-xs font-semibold uppercase tracking-widest opacity-80">Lesson 02</p>
             <h1 class="mt-1 text-3xl font-bold">変数と定数</h1>
             <p class="mt-2 text-sm opacity-90">変数に商品データを保存して、コンソールと Web ページに表示します。</p>
+            <p class="mt-2 text-sm opacity-90">js/variable.js を修正してください。</p>
         </header>
 
         <!-- 実行結果: 商品カード -->
-        <section class="rounded-2xl bg-white p-6 shadow">
-            <h2 class="text-lg font-bold">実行結果</h2>
-            <p class="mt-2 text-sm leading-relaxed text-slate-600">
-                <strong>js/variable.js</strong> で変数に保存した値が、下のカードに表示されます。
-            </p>
-
+        <section>
             <div class="mx-auto mt-4 max-w-md overflow-hidden rounded-2xl border border-slate-200">
                 <div class="bg-sky-500 px-6 py-6 text-white">
                     <p class="text-xs font-semibold uppercase tracking-widest opacity-80">Product</p>
@@ -64,82 +60,6 @@
                     </div>
                 </dl>
             </div>
-        </section>
-
-        <!-- 解説: ブラウザキャッシュのクリア -->
-        <section class="rounded-2xl bg-white p-6 shadow">
-            <h2 class="text-lg font-bold">ブラウザキャッシュのクリア</h2>
-            <p class="mt-5 font-bold rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-800">
-                コードを修正、保存したのに動作が変わらないときは、まずキャッシュを疑いましょう。
-            </p>
-            <p class="mt-2 text-sm leading-relaxed text-slate-600">
-                ブラウザは一度読み込んだ JS や CSS を保存（<strong>キャッシュ</strong>）します。
-                JSファイルを正しく修正して保存しても、キャッシュに残った修正前のファイルが使われ、変更が反映されないことがあります。
-            </p>
-
-            <div class="mt-4 flex flex-col items-stretch gap-2 text-sm sm:flex-row sm:items-center">
-                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
-                    <p class="font-semibold">hello.js を修正 ＆ 保存</p>
-                    <p class="text-xs text-slate-500">して再読み込み</p>
-                </div>
-                <span class="text-center text-slate-400">→</span>
-                <div class="flex-1 rounded-xl border border-rose-300 bg-rose-50 px-4 py-3 text-center">
-                    <p class="font-semibold text-rose-800">キャッシュの古い JS</p>
-                    <p class="text-xs text-rose-700">変更が反映されない</p>
-                </div>
-                <span class="text-center text-slate-400">→</span>
-                <div class="flex-1 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-center">
-                    <p class="font-semibold text-emerald-800">スーパーリロード</p>
-                    <p class="text-xs text-emerald-700">最新の JS を読み込み</p>
-                </div>
-            </div>
-
-            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
-                <table class="w-full text-sm">
-                    <thead class="bg-slate-50 text-left text-slate-500">
-                        <tr>
-                            <th class="px-4 py-2 font-medium">方法</th>
-                            <th class="px-4 py-2 font-medium">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-100">
-                        <tr>
-                            <td class="whitespace-nowrap px-4 py-2 align-top">スーパーリロード<br><span
-                                    class="text-xs text-slate-500">Windows</span></td>
-                            <td class="px-4 py-2 align-top">
-                                <kbd
-                                    class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Ctrl</kbd>
-                                + <kbd
-                                    class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Shift</kbd>
-                                + <kbd
-                                    class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">R</kbd>
-                                <span class="text-xs text-slate-500">または</span>
-                                <kbd
-                                    class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Ctrl</kbd>
-                                + <kbd
-                                    class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">F5</kbd>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="whitespace-nowrap px-4 py-2 align-top">スーパーリロード<br><span
-                                    class="text-xs text-slate-500">Mac</span></td>
-                            <td class="px-4 py-2 align-top">
-                                <kbd
-                                    class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Cmd</kbd>
-                                + <kbd
-                                    class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Shift</kbd>
-                                + <kbd
-                                    class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">R</kbd>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="whitespace-nowrap px-4 py-2 align-top">キャッシュの消去と<br>ハード再読み込み</td>
-                            <td class="px-4 py-2 align-top">DevTools を開いた状態で、再読み込みボタンを右クリック</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
         </section>
 
 
@@ -225,6 +145,37 @@
                     <p class="font-mono text-xs font-semibold text-amber-800">= 150</p>
                     <p class="text-xs text-amber-700">値を代入</p>
                 </div>
+            </div>
+
+            <h3 class="mt-6 text-sm font-bold">let で宣言する</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">var</code> の代わりに
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">let</code>
+                を使っても、同じように変数を宣言・代入できます。現在は <strong>let が主流</strong>です。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">// let で宣言と同時に代入</span>
+<span class="text-sky-300">let</span> price = <span class="text-amber-300">150</span>;</code></pre>
+
+            <p class="mt-4 text-sm leading-relaxed text-slate-600">
+                違いは、<strong>同じ名前で宣言し直せるかどうか</strong>です。
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">var</code>
+                は同じ名前で何度でも宣言できてしまうため、気づかないうちに値を上書きするミスが起きやすくなります。
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">let</code>
+                はエラーで知らせてくれます。
+            </p>
+
+            <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                <pre
+                    class="overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">var</span> price = <span class="text-amber-300">150</span>;
+<span class="text-sky-300">var</span> price = <span class="text-amber-300">200</span>;
+<span class="text-slate-500">// エラーにならない（上書き）</span></code></pre>
+                <pre
+                    class="overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">let</span> price = <span class="text-amber-300">150</span>;
+<span class="text-sky-300">let</span> price = <span class="text-amber-300">200</span>;
+<span class="text-rose-300">// エラー: Identifier 'price'</span>
+<span class="text-rose-300">// has already been declared</span></code></pre>
             </div>
 
             <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
@@ -387,14 +338,86 @@ document.getElementById(<span class="text-emerald-300">"price"</span>).textConte
             </p>
         </section>
 
+        <!-- 解説: ブラウザキャッシュのクリア -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">ブラウザキャッシュのクリア</h2>
+            <p class="mt-5 font-bold rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-800">
+                コードを修正、保存したのに動作が変わらないときは、まずキャッシュを疑いましょう。
+            </p>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                ブラウザは一度読み込んだ JS や CSS を保存（<strong>キャッシュ</strong>）します。
+                JSファイルを正しく修正して保存しても、キャッシュに残った修正前のファイルが使われ、変更が反映されないことがあります。
+            </p>
+
+            <div class="mt-4 flex flex-col items-stretch gap-2 text-sm sm:flex-row sm:items-center">
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-semibold">hello.js を修正 ＆ 保存</p>
+                    <p class="text-xs text-slate-500">して再読み込み</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-rose-300 bg-rose-50 px-4 py-3 text-center">
+                    <p class="font-semibold text-rose-800">キャッシュの古い JS</p>
+                    <p class="text-xs text-rose-700">変更が反映されない</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-center">
+                    <p class="font-semibold text-emerald-800">スーパーリロード</p>
+                    <p class="text-xs text-emerald-700">最新の JS を読み込み</p>
+                </div>
+            </div>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">方法</th>
+                            <th class="px-4 py-2 font-medium">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="whitespace-nowrap px-4 py-2 align-top">スーパーリロード<br><span
+                                    class="text-xs text-slate-500">Windows</span></td>
+                            <td class="px-4 py-2 align-top">
+                                <kbd
+                                    class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Ctrl</kbd>
+                                + <kbd
+                                    class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Shift</kbd>
+                                + <kbd
+                                    class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">R</kbd>
+                                <span class="text-xs text-slate-500">または</span>
+                                <kbd
+                                    class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Ctrl</kbd>
+                                + <kbd
+                                    class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">F5</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="whitespace-nowrap px-4 py-2 align-top">スーパーリロード<br><span
+                                    class="text-xs text-slate-500">Mac</span></td>
+                            <td class="px-4 py-2 align-top">
+                                <kbd
+                                    class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Cmd</kbd>
+                                + <kbd
+                                    class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">Shift</kbd>
+                                + <kbd
+                                    class="rounded border border-slate-300 bg-slate-50 px-1.5 py-0.5 font-mono text-xs">R</kbd>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="whitespace-nowrap px-4 py-2 align-top">キャッシュの消去と<br>ハード再読み込み</td>
+                            <td class="px-4 py-2 align-top">DevTools を開いた状態で、再読み込みボタンを右クリック</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
 
         <!-- 確認ポイント -->
         <section class="rounded-2xl bg-white p-6 shadow">
             <h2 class="text-lg font-bold">確認ポイント</h2>
-            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
-                ファイルを修正したら保存して、ブラウザを再読み込みしましょう。反映されないときはスーパーリロード！
-            </p>
-            <p class="my-2 text-sm text-slate-400">
+            <p class="my-2 text-sm text-slate-400">ファイルを修正したら保存して、ブラウザを再読み込みしましょう。反映されないときはスーパーリロード！</p>
             <ol class="mt-4 space-y-3">
                 <li class="flex gap-3">
                     <span
@@ -415,6 +438,7 @@ document.getElementById(<span class="text-emerald-300">"price"</span>).textConte
                     </p>
                 </li>
             </ol>
+
 
             <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
                 <table class="w-full text-sm">
