@@ -14,7 +14,7 @@ var tax = 0;
 var isMember = true
 var discount = 0;
 
-// TODO: 個数 quantity を増減
+// TODO: 個数 quantity を増減: ++
 
 // TODO: 小計金額計算: subTotalPrice
 
