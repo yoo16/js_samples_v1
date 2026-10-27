@@ -4,15 +4,15 @@
 
 // 定数と変数
 const TAX_RATE = 0.1;
-var itemName = "コーヒー";
-var price = 500;
-var quantity = 2;
-var subTotalPrice = 0;
-var totalPrice = 0;
-var taxWithoutPrice = 0;
-var tax = 0;
-var isMember = true
-var discount = 0;
+let itemName = "コーヒー";
+let price = 500;
+let quantity = 2;
+let subTotalPrice = 0;
+let totalPrice = 0;
+let taxWithoutPrice = 0;
+let tax = 0;
+let isMember = true
+let discount = 0;
 
 // TODO: 個数 quantity を増減: ++
 
@@ -36,7 +36,7 @@ var orderNo = 20341;
 // TODO: オーダーコード生成（数値連結）※ 注意)文字列連結ではない
 var orderCode;
 
-// TODO: オーダーコード生成（テキスト連結） xx-xxxx 形式
+// TODO: オーダーコード生成（テキスト連結） xx-xxxx 形式: バッククォートで囲む
 // orderCode = `${tableNo}-${orderNo}`;
 
 // HTML表示
