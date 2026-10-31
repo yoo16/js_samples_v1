@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" width="720" height="260" role="img" aria-labelledby="t d">
+  <title id="t">関数を実行するタイミング</title>
+  <desc id="d">showYokohama() がすぐに実行され、ページの読み込み完了後に onload で showTokyo() が実行される。結果は横浜東京</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <rect width="720" height="260" fill="#ffffff"/>
+  <g font-family="Hiragino Sans, Noto Sans JP, Meiryo, sans-serif" text-anchor="middle">
+    <rect x="20" y="40" width="200" height="100" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="120" y="68" font-size="13" font-weight="700" fill="#64748b">①</text>
+    <text x="120" y="92" font-size="15" font-weight="700" fill="#0f172a" font-family="monospace">showYokohama()</text>
+    <text x="120" y="120" font-size="13" fill="#64748b">すぐに実行 → 「横浜」</text>
+
+    <rect x="260" y="40" width="200" height="100" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="360" y="68" font-size="13" font-weight="700" fill="#64748b">②</text>
+    <text x="360" y="92" font-size="15" font-weight="700" fill="#0f172a">ページの読み込み完了</text>
+    <text x="360" y="120" font-size="13" fill="#64748b">onload が動く</text>
+
+    <rect x="500" y="40" width="200" height="100" rx="12" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
+    <text x="600" y="68" font-size="13" font-weight="700" fill="#0369a1">③</text>
+    <text x="600" y="92" font-size="15" font-weight="700" fill="#075985" font-family="monospace">showTokyo()</text>
+    <text x="600" y="120" font-size="13" fill="#0369a1">あとで実行 → 「東京」</text>
+
+    <rect x="230" y="190" width="260" height="52" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+    <text x="360" y="224" font-size="18" font-weight="700" fill="#065f46">結果: 横浜東京</text>
+  </g>
+  <line x1="220" y1="90" x2="256" y2="90" stroke="#64748b" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="460" y1="90" x2="496" y2="90" stroke="#64748b" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="360" y1="142" x2="360" y2="186" stroke="#64748b" stroke-width="2.5" marker-end="url(#a)"/>
+</svg>

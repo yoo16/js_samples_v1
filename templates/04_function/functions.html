@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>関数</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-white px-4 text-slate-800">
+    <main class="mx-auto w-full max-w-2xl space-y-6 py-6">
+
+        <!-- ヘッダー -->
+        <header class="rounded-2xl bg-sky-600 px-6 py-8 text-white shadow-xl">
+            <p class="text-xs font-semibold uppercase tracking-widest opacity-80">Lesson 04-1</p>
+            <h1 class="mt-1 text-3xl font-bold">関数の基本</h1>
+            <p class="mt-2 text-sm opacity-90">用意されている関数と、自分で作る関数の書き方を確認します。</p>
+        </header>
+
+        <!-- ビルトイン関数 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">ビルトイン関数</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                JavaScript にあらかじめ用意されている関数です。<strong>関数名( )</strong> の ( ) の中に値（<strong>引数</strong>）を渡すと、
+                結果（<strong>戻り値</strong>）が返ってきます。
+            </p>
+
+            <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">関数</th>
+                            <th class="px-4 py-2 font-medium">入力</th>
+                            <th class="px-4 py-2 font-medium">結果</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">parseInt()</td>
+                            <td id="parseInt_input" class="px-4 py-2 font-mono text-xs"></td>
+                            <td id="parseInt_output" class="px-4 py-2 font-mono text-xs"></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">isNaN()</td>
+                            <td class="px-4 py-2 font-mono text-xs">コーヒー</td>
+                            <td id="isNaN_1" class="px-4 py-2 font-mono text-xs"></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">isNaN()</td>
+                            <td class="px-4 py-2 font-mono text-xs">0005</td>
+                            <td id="isNaN_2" class="px-4 py-2 font-mono text-xs"></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">isNaN()</td>
+                            <td class="px-4 py-2 font-mono text-xs">5</td>
+                            <td id="isNaN_3" class="px-4 py-2 font-mono text-xs"></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">Math.round()</td>
+                            <td class="px-4 py-2 font-mono text-xs">169.5</td>
+                            <td id="math_round" class="px-4 py-2 font-mono text-xs"></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">Math.ceil()</td>
+                            <td class="px-4 py-2 font-mono text-xs">169.5</td>
+                            <td id="math_ceil" class="px-4 py-2 font-mono text-xs"></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">Math.floor()</td>
+                            <td class="px-4 py-2 font-mono text-xs">169.5</td>
+                            <td id="math_floor" class="px-4 py-2 font-mono text-xs"></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">Math.max()</td>
+                            <td class="px-4 py-2 font-mono text-xs">1, 5, 10, 3</td>
+                            <td id="math_max" class="px-4 py-2 font-mono text-xs"></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">Math.min()</td>
+                            <td class="px-4 py-2 font-mono text-xs">1, 5, 10, 3</td>
+                            <td id="math_min" class="px-4 py-2 font-mono text-xs"></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">setInterval()</td>
+                            <td class="px-4 py-2 font-mono text-xs">1000ms（1秒）</td>
+                            <td id="count" class="px-4 py-2 font-mono text-xs"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">let</span> number = parseInt(<span class="text-emerald-300">"0005"</span>);   <span class="text-slate-500">// 5（文字列 → 数値）</span>
+<span class="text-sky-300">let</span> rounded = Math.round(<span class="text-amber-300">169.5</span>);     <span class="text-slate-500">// 170（四捨五入）</span>
+<span class="text-sky-300">let</span> maxValue = Math.max(<span class="text-amber-300">1</span>, <span class="text-amber-300">5</span>, <span class="text-amber-300">10</span>, <span class="text-amber-300">3</span>);  <span class="text-slate-500">// 10（引数はいくつでも渡せる）</span></code></pre>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">関数</th>
+                            <th class="px-4 py-2 font-medium">役割</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">parseInt()</td>
+                            <td class="px-4 py-2">文字列を整数に変換</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">isNaN()</td>
+                            <td class="px-4 py-2">数値でないとき true</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">Math.round()</td>
+                            <td class="px-4 py-2">四捨五入</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">Math.ceil()</td>
+                            <td class="px-4 py-2">切り上げ</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">Math.floor()</td>
+                            <td class="px-4 py-2">切り捨て</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">Math.max() / Math.min()</td>
+                            <td class="px-4 py-2">最大値 / 最小値</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">setInterval()</td>
+                            <td class="px-4 py-2">指定した時間（ミリ秒）ごとに、関数を繰り返し実行</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                <code class="font-mono">isNaN("0005")</code> が <code class="font-mono">false</code>
+                なのは、"0005" が数値に変換できる文字列だからです。<code class="font-mono">isNaN("コーヒー")</code> は変換できないので
+                <code class="font-mono">true</code> になります。
+            </p>
+        </section>
+
+        <!-- ユーザ定義関数 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">ユーザ定義関数</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                自分で作る関数です。<code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">function</code>
+                で<strong>定義</strong>しておけば、名前を書くだけで何度でも<strong>呼び出せます</strong>。
+            </p>
+
+            <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">関数</th>
+                            <th class="px-4 py-2 font-medium">入力</th>
+                            <th class="px-4 py-2 font-medium">結果</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">calculate()</td>
+                            <td class="px-4 py-2 font-mono text-xs">8</td>
+                            <td id="calc1" class="px-4 py-2 font-mono text-xs"></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">calculate()</td>
+                            <td class="px-4 py-2 font-mono text-xs">71</td>
+                            <td id="calc2" class="px-4 py-2 font-mono text-xs"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">// 定義: 受け取った数を2乗して返す</span>
+<span class="text-sky-300">function</span> calculate(x) {
+    <span class="text-sky-300">let</span> y = x ** <span class="text-amber-300">2</span>;
+    <span class="text-sky-300">return</span> y;
+}
+
+<span class="text-slate-500">// 呼び出し</span>
+calculate(<span class="text-amber-300">8</span>);    <span class="text-slate-500">// 64</span>
+calculate(<span class="text-amber-300">71</span>);   <span class="text-slate-500">// 5041</span></code></pre>
+
+            <img src="images/function-flow.svg" alt="引数 8 を calculate(x) に渡すと、2乗した戻り値 64 が返る" class="mt-4 w-full rounded-xl border border-slate-200">
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">用語</th>
+                            <th class="px-4 py-2 font-medium">意味</th>
+                            <th class="px-4 py-2 font-medium">この例</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2">定義</td>
+                            <td class="px-4 py-2">関数を作ること</td>
+                            <td class="px-4 py-2 font-mono text-xs">function calculate(x) { }</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">引数</td>
+                            <td class="px-4 py-2">関数に渡す値</td>
+                            <td class="px-4 py-2 font-mono text-xs">x</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">戻り値</td>
+                            <td class="px-4 py-2">関数が返す結果</td>
+                            <td class="px-4 py-2 font-mono text-xs">return y</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">呼び出し</td>
+                            <td class="px-4 py-2">関数を実行すること</td>
+                            <td class="px-4 py-2 font-mono text-xs">calculate(8)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 関数の外の変数と、中の変数 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">関数の外の変数と、中の変数</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                変数は<strong>どこで宣言したか</strong>で、使える範囲が変わります。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">// 関数の外で宣言: どこからでも使える</span>
+<span class="text-sky-300">let</span> height = <span class="text-amber-300">169.5</span>;
+
+<span class="text-sky-300">function</span> calculate(x) {
+    <span class="text-slate-500">// x（引数）と y は、この関数の中だけで使える</span>
+    <span class="text-sky-300">let</span> y = x ** <span class="text-amber-300">2</span>;
+    <span class="text-sky-300">return</span> y;
+}
+
+console.log(height);   <span class="text-slate-500">// 169.5</span>
+console.log(y);        <span class="text-slate-500">// エラー: y is not defined（関数の外からは見えない）</span></code></pre>
+            <img src="images/scope.svg" alt="関数の外の変数 height は関数の中から使えるが、関数の中の変数 y は外から使えない" class="mt-4 w-full rounded-xl border border-slate-200">
+
+            <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">種類</th>
+                            <th class="px-4 py-2 font-medium">宣言する場所</th>
+                            <th class="px-4 py-2 font-medium">使える範囲</th>
+                            <th class="px-4 py-2 font-medium">この例</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="whitespace-nowrap px-4 py-2">グローバル変数</td>
+                            <td class="px-4 py-2">関数の外</td>
+                            <td class="px-4 py-2">プログラム全体</td>
+                            <td class="px-4 py-2 font-mono text-xs">height</td>
+                        </tr>
+                        <tr>
+                            <td class="whitespace-nowrap px-4 py-2">ローカル変数</td>
+                            <td class="px-4 py-2">関数の中</td>
+                            <td class="px-4 py-2">その関数の中だけ</td>
+                            <td class="px-4 py-2 font-mono text-xs">x、y</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                ブラウザの開発者ツール（F12）の Console で、<code class="font-mono">console.log(y)</code>
+                がエラーになることを確かめてみましょう。
+            </p>
+
+            <p class="mt-5 text-sm leading-relaxed text-slate-600">
+                関数の外の変数は、関数の中から<strong>書き換える</strong>こともできます。
+                レジの合計金額のように、関数を呼ぶたびに値が積み重なる（<strong>状態を持つ</strong>）処理は、この書き方です。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">let</span> total = <span class="text-amber-300">0</span>;           <span class="text-slate-500">// 合計金額（関数の外）</span>
+
+<span class="text-sky-300">function</span> addItem(price) {
+    total += price;          <span class="text-slate-500">// 外の変数を書き換える（return はしない）</span>
+}
+
+addItem(<span class="text-amber-300">500</span>);          <span class="text-slate-500">// total は 500</span>
+addItem(<span class="text-amber-300">700</span>);          <span class="text-slate-500">// total は 1200</span></code></pre>
+
+            <div class="mt-4 flex flex-col items-stretch gap-2 text-sm sm:flex-row sm:items-center">
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">total</p>
+                    <p class="font-semibold">0</p>
+                </div>
+                <span class="text-center text-slate-400">→ addItem(500) →</span>
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">total</p>
+                    <p class="font-semibold">500</p>
+                </div>
+                <span class="text-center text-slate-400">→ addItem(700) →</span>
+                <div class="flex-1 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs text-emerald-700">total</p>
+                    <p class="font-semibold text-emerald-800">1200</p>
+                </div>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                <code class="font-mono">calculate()</code> のように、引数を受け取って戻り値で返すだけの関数は、同じ引数なら必ず同じ結果になるので、動きが分かりやすくなります。
+                外の変数を書き換える関数は、いつ値が変わるのか追いにくくなるため、必要なときだけ使いましょう。
+            </p>
+        </section>
+
+        <!-- 無名関数・アロー関数 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">無名関数とアロー関数</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                関数は<strong>名前を付けずに作って、変数に入れる</strong>こともできます。
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">=&gt;</code>
+                を使った短い書き方を<strong>アロー関数</strong>と呼びます。どちらも呼び出し方は同じです。
+            </p>
+
+            <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">関数</th>
+                            <th class="px-4 py-2 font-medium">入力</th>
+                            <th class="px-4 py-2 font-medium">結果</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">hello1()</td>
+                            <td class="px-4 py-2">東京 太郎</td>
+                            <td id="hello1" class="px-4 py-2"></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">hello2()</td>
+                            <td class="px-4 py-2">東京 太郎</td>
+                            <td id="hello2" class="px-4 py-2"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">// 無名関数: function に名前を付けず、変数に入れる</span>
+<span class="text-sky-300">const</span> hello1 = <span class="text-sky-300">function</span> (name) {
+    <span class="text-sky-300">let</span> message = name + <span class="text-emerald-300">"さん、いらっしゃい"</span>;
+    <span class="text-sky-300">return</span> message;
+};
+
+<span class="text-slate-500">// アロー関数: function の代わりに =&gt;</span>
+<span class="text-sky-300">const</span> hello2 = (name) =&gt; {
+    <span class="text-sky-300">let</span> message = name + <span class="text-emerald-300">"さん、いらっしゃい"</span>;
+    <span class="text-sky-300">return</span> message;
+};</code></pre>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">書き方</th>
+                            <th class="px-4 py-2 font-medium">形</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2">関数宣言</td>
+                            <td class="px-4 py-2 font-mono text-xs">function hello(name) { }</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">無名関数</td>
+                            <td class="px-4 py-2 font-mono text-xs">const hello = function (name) { };</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">アロー関数</td>
+                            <td class="px-4 py-2 font-mono text-xs">const hello = (name) =&gt; { };</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 実行のタイミング -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">関数を実行するタイミング</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                関数は、<strong>呼び出したとき</strong>に実行されます。
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">window.onload</code>
+                に入れた関数は、<strong>ページの読み込みが終わってから</strong>実行されます。
+            </p>
+
+            <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">関数</th>
+                            <th class="px-4 py-2 font-medium">実行のタイミング</th>
+                            <th class="px-4 py-2 font-medium">結果</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">showTokyo()</td>
+                            <td class="px-4 py-2">window.onload で実行</td>
+                            <td id="message" rowspan="2" class="px-4 py-2 text-center font-semibold"></td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">showYokohama()</td>
+                            <td class="px-4 py-2">通常で実行</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">function</span> showTokyo() {
+    document.getElementById(<span class="text-emerald-300">"message"</span>).textContent += <span class="text-emerald-300">"東京"</span>;
+}
+<span class="text-sky-300">function</span> showYokohama() {
+    document.getElementById(<span class="text-emerald-300">"message"</span>).textContent += <span class="text-emerald-300">"横浜"</span>;
+}
+
+<span class="text-slate-500">// ページの読み込み後に実行（( ) は付けない）</span>
+window.onload = showTokyo;
+
+<span class="text-slate-500">// すぐに実行</span>
+showYokohama();</code></pre>
+
+            <img src="images/timing.svg" alt="showYokohama() がすぐ実行され、読み込み完了後に onload で showTokyo() が実行される。結果は横浜東京" class="mt-4 w-full rounded-xl border border-slate-200">
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                <code class="font-mono">window.onload = showTokyo;</code> のように ( ) を付けないのは、
+                関数を「今すぐ実行」するのではなく、「あとで実行する関数」として渡すためです。
+                ( ) を付けて <code class="font-mono">showTokyo()</code> と書くと、その場で実行されてしまいます。
+            </p>
+        </section>
+
+        <!-- 確認ポイント -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">確認ポイント</h2>
+            <p class="my-2 text-sm text-slate-400">ファイルを修正したら保存して、ブラウザを再読み込みしましょう。反映されないときはスーパーリロード！</p>
+            <ol class="mt-4 space-y-3">
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">1</span>
+                    <p class="text-sm leading-relaxed"><code class="font-mono">parseInt("0005")</code> が <strong>5</strong>、<code
+                            class="font-mono">isNaN()</code> が順に <strong>true / false / false</strong> になっている</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">2</span>
+                    <p class="text-sm leading-relaxed">169.5 の四捨五入が <strong>170</strong>、切り上げが <strong>170</strong>、切り捨てが
+                        <strong>169</strong>、最大値が <strong>10</strong>、最小値が <strong>1</strong> になっている</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">3</span>
+                    <p class="text-sm leading-relaxed">setInterval() の秒数が、<strong>1秒ごとに増えていく</strong></p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">4</span>
+                    <p class="text-sm leading-relaxed">calculate() の結果が <strong>64</strong> と <strong>5041</strong> になっている</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">5</span>
+                    <p class="text-sm leading-relaxed">hello1() と hello2() の結果が、どちらも <strong>東京 太郎さん、いらっしゃい</strong> になっている</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">6</span>
+                    <p class="text-sm leading-relaxed">「東京」と「横浜」が、<strong>横浜東京</strong> の順に表示されている</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">7</span>
+                    <p class="text-sm leading-relaxed">Console で <code class="font-mono">console.log(y)</code> が <strong>エラー</strong>になる（関数の中の変数は外から見えない）</p>
+                </li>
+            </ol>
+        </section>
+    </main>
+
+    <script src="js/functions.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 600" width="720" height="600" role="img" aria-labelledby="t d">
+  <title id="t">料金計算の流れ</title>
+  <desc id="d">simulate() が、料金取得、ルーム料金、小計、税込合計、表示の順に関数を呼び出す</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <rect width="720" height="600" fill="#ffffff"/>
+  <g font-family="Hiragino Sans, Noto Sans JP, Meiryo, sans-serif">
+    <text x="30" y="30" font-size="14" fill="#64748b">例: 平日・大人2人・120分・ドリンクバーあり・会員</text>
+
+    <!-- simulate -->
+    <rect x="30" y="46" width="470" height="48" rx="10" fill="#0284c7"/>
+    <text x="265" y="77" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="monospace">simulate()</text>
+
+    <!-- 1 -->
+    <rect x="30" y="124" width="470" height="56" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="50" y="148" font-size="15" font-weight="700" fill="#0f172a" font-family="monospace">getPricePer30min("adult", isHoliday)</text>
+    <text x="50" y="168" font-size="12" fill="#64748b">30分あたりの料金を変数に保存（adultPrice）</text>
+    <text x="520" y="158" font-size="20" font-weight="700" fill="#0f172a" font-family="monospace">300</text>
+
+    <!-- 2 -->
+    <rect x="30" y="210" width="470" height="56" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="50" y="234" font-size="15" font-weight="700" fill="#0f172a" font-family="monospace">calcRoomFee(adult, adultPrice, minutes)</text>
+    <text x="50" y="254" font-size="12" fill="#64748b">2人 × 300円 × 4回（区分ごとに足してルーム料金）</text>
+    <text x="520" y="244" font-size="20" font-weight="700" fill="#0f172a" font-family="monospace">2400</text>
+
+    <!-- 3 -->
+    <rect x="30" y="296" width="470" height="56" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="50" y="320" font-size="15" font-weight="700" fill="#0f172a" font-family="monospace">calcSubtotal(roomFee, drinkFee)</text>
+    <text x="50" y="340" font-size="12" fill="#64748b">ルーム料金 2400 + ドリンクバー 1000</text>
+    <text x="520" y="330" font-size="20" font-weight="700" fill="#0f172a" font-family="monospace">3400</text>
+
+    <!-- 4 -->
+    <rect x="30" y="382" width="470" height="56" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
+    <text x="50" y="406" font-size="15" font-weight="700" fill="#075985" font-family="monospace">calcTotal(subtotal, isMember)</text>
+    <text x="50" y="426" font-size="12" fill="#0369a1">会員なら割引してから、税込にする</text>
+    <text x="520" y="416" font-size="20" font-weight="700" fill="#075985" font-family="monospace">3366</text>
+
+    <!-- calcTotal の中 -->
+    <rect x="30" y="458" width="470" height="44" rx="10" fill="#ffffff" stroke="#7dd3fc" stroke-width="2" stroke-dasharray="6 5"/>
+    <text x="50" y="485" font-size="13" fill="#0369a1" font-family="monospace">applyDiscount(3400) → 3060　→　addTax(3060) → 3366</text>
+
+    <!-- 5 -->
+    <rect x="30" y="532" width="470" height="56" rx="10" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+    <text x="50" y="556" font-size="15" font-weight="700" fill="#065f46" font-family="monospace">renderResult(...)</text>
+    <text x="50" y="576" font-size="12" fill="#047857">formatYen() で整えて、レシートを表示</text>
+    <text x="520" y="566" font-size="20" font-weight="700" fill="#065f46" font-family="monospace">3,366円</text>
+  </g>
+  <g stroke="#64748b" stroke-width="2.5" marker-end="url(#a)">
+    <line x1="265" y1="94" x2="265" y2="120"/>
+    <line x1="265" y1="180" x2="265" y2="206"/>
+    <line x1="265" y1="266" x2="265" y2="292"/>
+    <line x1="265" y1="352" x2="265" y2="378"/>
+    <line x1="265" y1="438" x2="265" y2="454"/>
+    <line x1="265" y1="502" x2="265" y2="528"/>
+  </g>
+</svg>

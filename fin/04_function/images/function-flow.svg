@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="720" height="220" role="img" aria-labelledby="t d">
+  <title id="t">関数の入力と出力</title>
+  <desc id="d">引数 8 を calculate() に渡すと、2乗した戻り値 64 が返る</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <rect width="720" height="220" fill="#ffffff"/>
+  <g font-family="Hiragino Sans, Noto Sans JP, Meiryo, sans-serif" text-anchor="middle">
+    <!-- 引数 -->
+    <rect x="30" y="60" width="170" height="90" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="115" y="95" font-size="14" fill="#64748b">引数（入力）</text>
+    <text x="115" y="130" font-size="28" font-weight="700" fill="#0f172a" font-family="monospace">8</text>
+
+    <!-- 関数 -->
+    <rect x="270" y="45" width="180" height="120" rx="12" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
+    <text x="360" y="80" font-size="18" font-weight="700" fill="#075985" font-family="monospace">calculate(x)</text>
+    <text x="360" y="112" font-size="14" fill="#0369a1" font-family="monospace">let y = x ** 2;</text>
+    <text x="360" y="140" font-size="14" fill="#0369a1" font-family="monospace">return y;</text>
+
+    <!-- 戻り値 -->
+    <rect x="520" y="60" width="170" height="90" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="2"/>
+    <text x="605" y="95" font-size="14" fill="#047857">戻り値（出力）</text>
+    <text x="605" y="130" font-size="28" font-weight="700" fill="#065f46" font-family="monospace">64</text>
+
+    <!-- ラベル -->
+    <text x="235" y="200" font-size="13" fill="#64748b">calculate(8) と呼び出す</text>
+    <text x="485" y="200" font-size="13" fill="#64748b">return で返す</text>
+  </g>
+  <line x1="200" y1="105" x2="266" y2="105" stroke="#64748b" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="450" y1="105" x2="516" y2="105" stroke="#64748b" stroke-width="2.5" marker-end="url(#a)"/>
+</svg>

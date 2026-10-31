@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KARA-BOX 料金シミュレーター</title>
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100 text-slate-800">
+    <!-- ヘッダー -->
+    <header class="bg-slate-900 text-white">
+        <div class="max-w-5xl mx-auto flex items-center justify-between px-4 py-3">
+            <div class="flex items-center gap-2">
+                <span class="bg-sky-500 text-white font-black px-2 py-1 rounded">♪</span>
+                <span class="text-2xl font-black tracking-widest">KARA-BOX</span>
+            </div>
+            <nav class="hidden md:flex gap-6 text-sm text-slate-300">
+                <span>店舗情報</span>
+                <span>料金・システム</span>
+                <span>フード＆ドリンク</span>
+                <span class="text-yellow-400 font-bold">料金シミュレーター</span>
+            </nav>
+        </div>
+    </header>
+
+    <!-- メインビジュアル -->
+    <section class="bg-sky-500 text-white">
+        <div class="max-w-5xl mx-auto px-4 py-8 text-center">
+            <p class="text-sm tracking-widest text-yellow-200 font-bold">PRICE SIMULATOR</p>
+            <h1 class="text-3xl md:text-4xl font-black mt-1">ご利用料金をカンタン計算</h1>
+            <p class="mt-2 text-sky-100">人数と時間を選ぶだけ。お会計の目安がすぐに分かります。</p>
+        </div>
+    </section>
+
+    <main class="max-w-5xl mx-auto px-4 py-8 grid md:grid-cols-5 gap-6">
+        <!-- 左：入力 -->
+        <div class="md:col-span-3 space-y-5">
+
+            <!-- STEP 1 -->
+            <section class="bg-white rounded-lg shadow-sm p-5">
+                <h2 class="flex items-center gap-2 font-bold text-lg mb-3">
+                    <span class="bg-slate-900 text-white text-xs rounded px-2 py-1">STEP 1</span>ご利用の曜日
+                </h2>
+                <div class="grid grid-cols-2 gap-2">
+                    <label class="cursor-pointer">
+                        <input type="radio" name="day" value="weekday" class="peer sr-only" checked>
+                        <div class="text-center py-3 rounded border-2 border-slate-200 font-bold
+                                    peer-checked:bg-sky-500 peer-checked:border-sky-500 peer-checked:text-white">
+                            平日<span class="block text-xs font-normal">月〜金</span>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" name="day" value="holiday" class="peer sr-only">
+                        <div class="text-center py-3 rounded border-2 border-slate-200 font-bold
+                                    peer-checked:bg-sky-500 peer-checked:border-sky-500 peer-checked:text-white">
+                            土日祝<span class="block text-xs font-normal">祝前日を除く</span>
+                        </div>
+                    </label>
+                </div>
+            </section>
+
+            <!-- STEP 2 -->
+            <section class="bg-white rounded-lg shadow-sm p-5">
+                <h2 class="flex items-center gap-2 font-bold text-lg mb-3">
+                    <span class="bg-slate-900 text-white text-xs rounded px-2 py-1">STEP 2</span>ご利用人数
+                </h2>
+                <ul class="divide-y divide-slate-200">
+                    <li class="flex items-center justify-between py-3">
+                        <div>
+                            <div class="font-bold">大人</div>
+                            <div class="text-xs text-slate-500">高校生以上</div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button type="button" data-target="adult" data-step="-1"
+                                class="stepper w-9 h-9 rounded-full bg-slate-200 hover:bg-slate-300 text-xl font-bold">−</button>
+                            <input id="adult" type="number" min="0" value="2" readonly
+                                class="w-12 text-center text-xl font-bold bg-transparent">
+                            <button type="button" data-target="adult" data-step="1"
+                                class="stepper w-9 h-9 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-xl font-bold">＋</button>
+                        </div>
+                    </li>
+                    <li class="flex items-center justify-between py-3">
+                        <div>
+                            <div class="font-bold">学生</div>
+                            <div class="text-xs text-slate-500">大学・専門学校（学生証提示）</div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button type="button" data-target="student" data-step="-1"
+                                class="stepper w-9 h-9 rounded-full bg-slate-200 hover:bg-slate-300 text-xl font-bold">−</button>
+                            <input id="student" type="number" min="0" value="0" readonly
+                                class="w-12 text-center text-xl font-bold bg-transparent">
+                            <button type="button" data-target="student" data-step="1"
+                                class="stepper w-9 h-9 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-xl font-bold">＋</button>
+                        </div>
+                    </li>
+                    <li class="flex items-center justify-between py-3">
+                        <div>
+                            <div class="font-bold">子供</div>
+                            <div class="text-xs text-slate-500">小学生〜中学生</div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button type="button" data-target="child" data-step="-1"
+                                class="stepper w-9 h-9 rounded-full bg-slate-200 hover:bg-slate-300 text-xl font-bold">−</button>
+                            <input id="child" type="number" min="0" value="0" readonly
+                                class="w-12 text-center text-xl font-bold bg-transparent">
+                            <button type="button" data-target="child" data-step="1"
+                                class="stepper w-9 h-9 rounded-full bg-sky-500 hover:bg-sky-600 text-white text-xl font-bold">＋</button>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- STEP 3 -->
+            <section class="bg-white rounded-lg shadow-sm p-5">
+                <h2 class="flex items-center gap-2 font-bold text-lg mb-3">
+                    <span class="bg-slate-900 text-white text-xs rounded px-2 py-1">STEP 3</span>ご利用時間
+                </h2>
+                <select id="minutes" class="w-full border-2 border-slate-200 rounded px-3 py-2 font-bold bg-white">
+                    <option value="30">30分</option>
+                    <option value="60">60分</option>
+                    <option value="90">90分</option>
+                    <option value="120" selected>120分（2時間）</option>
+                    <option value="180">180分（3時間）</option>
+                    <option value="240">240分（4時間）</option>
+                </select>
+            </section>
+
+            <!-- STEP 4 -->
+            <section class="bg-white rounded-lg shadow-sm p-5">
+                <h2 class="flex items-center gap-2 font-bold text-lg mb-3">
+                    <span class="bg-slate-900 text-white text-xs rounded px-2 py-1">STEP 4</span>オプション
+                </h2>
+                <div class="space-y-2">
+                    <label class="cursor-pointer block">
+                        <input id="drink" type="checkbox" class="peer sr-only">
+                        <div class="flex items-center justify-between rounded border-2 border-slate-200 px-4 py-3
+                                    peer-checked:border-sky-500 peer-checked:bg-sky-50">
+                            <span class="font-bold">ドリンクバー</span>
+                            <span class="text-sm text-slate-600">1人 500円</span>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer block">
+                        <input id="member" type="checkbox" class="peer sr-only">
+                        <div class="flex items-center justify-between rounded border-2 border-slate-200 px-4 py-3
+                                    peer-checked:border-sky-500 peer-checked:bg-sky-50">
+                            <span class="font-bold">KARA-BOX 会員</span>
+                            <span class="text-sm bg-yellow-400 text-slate-900 font-bold rounded px-2 py-0.5">10% OFF</span>
+                        </div>
+                    </label>
+                </div>
+            </section>
+
+            <button id="calc-button" type="button"
+                class="w-full bg-yellow-400 hover:bg-yellow-300 text-slate-900 text-xl font-black rounded-lg py-4 shadow-sm">
+                料金を計算する
+            </button>
+        </div>
+
+        <!-- 右：レシート -->
+        <aside class="md:col-span-2">
+            <div class="md:sticky md:top-4 space-y-5">
+                <section class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="bg-slate-900 text-white text-center py-2 font-bold tracking-widest">お見積り</div>
+                    <div id="result" class="p-5 text-slate-500 text-center text-sm">
+                        「料金を計算する」を押してください
+                    </div>
+                </section>
+
+                <!-- 料金表（店頭の価格表のイメージ） -->
+                <section class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="bg-slate-900 text-white text-center py-2 font-bold tracking-widest">料金表（30分・1人・税抜）</div>
+                    <table class="w-full text-center text-sm">
+                        <thead class="bg-slate-100 text-slate-600">
+                            <tr>
+                                <th class="py-2"></th>
+                                <th class="py-2">平日</th>
+                                <th class="py-2">土日祝</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr>
+                                <td class="py-2 font-bold">大人</td>
+                                <td>300円</td>
+                                <td>400円</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-bold">学生</td>
+                                <td>200円</td>
+                                <td>300円</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 font-bold">子供</td>
+                                <td>100円</td>
+                                <td>200円</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </aside>
+    </main>
+
+    <!-- ここから解説 -->
+    <div class="mx-auto w-full max-w-2xl space-y-6 px-4 pb-10">
+
+        <!-- ヘッダー -->
+        <header class="rounded-2xl bg-sky-600 px-6 py-8 text-white shadow-xl">
+            <p class="text-xs font-semibold uppercase tracking-widest opacity-80">Lesson 04-2</p>
+            <h2 class="mt-1 text-3xl font-bold">関数で料金を組み立てる</h2>
+            <p class="mt-2 text-sm opacity-90">小さな関数を組み合わせて、カラオケの料金シミュレーターを作ります。</p>
+        </header>
+
+        <!-- 解説: 計算の流れ -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">計算の流れ</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                ボタンを押すと <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">simulate()</code>
+                が動き、役割ごとに分けた関数を<strong>順番に呼び出して</strong>料金を求めます。
+                関数の結果は、<strong>1つずつ変数に保存</strong>してから次の関数に渡します。
+                例として「平日・大人2人・120分・ドリンクバーあり・会員」の場合を見てみましょう。
+            </p>
+
+            <img src="images/karaoke-flow.svg" alt="simulate() が、料金取得、ルーム料金、小計、税込合計、表示の順に関数を呼び出す流れ" class="mt-4 w-full rounded-xl border border-slate-200">
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                <code class="font-mono">calcTotal()</code> の中では、さらに <code class="font-mono">applyDiscount()</code> と
+                <code class="font-mono">addTax()</code> が呼び出されています。関数の中から別の関数を呼ぶこともできます。
+            </p>
+        </section>
+
+        <!-- 解説: 関数一覧 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">使っている関数の一覧</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                このサンプルには、JavaScript にあらかじめ用意されている<strong>ビルトイン関数</strong>と、
+                自分で作る<strong>ユーザ定義関数</strong>の2種類が登場します。
+            </p>
+
+            <h3 class="mt-5 text-sm font-bold text-slate-700">ビルトイン関数</h3>
+            <div class="mt-2 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">関数</th>
+                            <th class="px-4 py-2 font-medium">役割</th>
+                            <th class="px-4 py-2 font-medium">使っている場所</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">Number()</td>
+                            <td class="px-4 py-2">文字列を数値に変換</td>
+                            <td class="px-4 py-2">人数・利用時間の取得</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">Math.floor()</td>
+                            <td class="px-4 py-2">小数点以下を切り捨て</td>
+                            <td class="px-4 py-2">applyDiscount() / addTax()</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">Math.ceil()</td>
+                            <td class="px-4 py-2">小数点以下を切り上げ</td>
+                            <td class="px-4 py-2">1人あたりの金額</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">Math.max()</td>
+                            <td class="px-4 py-2">いちばん大きい値を返す</td>
+                            <td class="px-4 py-2">changeCount()（0 未満にしない）</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">toLocaleString()</td>
+                            <td class="px-4 py-2">3桁ごとにカンマ区切り</td>
+                            <td class="px-4 py-2">formatYen()</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">document.getElementById()</td>
+                            <td class="px-4 py-2">id で要素を取得</td>
+                            <td class="px-4 py-2">入力値の読み取り・結果の表示</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">document.querySelector()</td>
+                            <td class="px-4 py-2">条件に合う最初の要素を取得</td>
+                            <td class="px-4 py-2">選択中の曜日</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">addEventListener()</td>
+                            <td class="px-4 py-2">クリックなどの操作に関数を結びつける</td>
+                            <td class="px-4 py-2">計算ボタン</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="mt-6 text-sm font-bold text-slate-700">ユーザ定義関数</h3>
+            <div class="mt-2 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">関数</th>
+                            <th class="px-4 py-2 font-medium">役割</th>
+                            <th class="px-4 py-2 font-medium">戻り値</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">getPricePer30min(type, isHoliday)</td>
+                            <td class="px-4 py-2">30分あたりの1人料金を求める</td>
+                            <td class="px-4 py-2">料金</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">calcRoomFee(people, price, minutes)</td>
+                            <td class="px-4 py-2">ルーム料金を計算する</td>
+                            <td class="px-4 py-2">料金</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">calcSubtotal(roomFee, drinkFee)</td>
+                            <td class="px-4 py-2">小計を計算する</td>
+                            <td class="px-4 py-2">金額</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">calcTotal(subtotal, isMember)</td>
+                            <td class="px-4 py-2">会員なら割引し、税込合計を求める</td>
+                            <td class="px-4 py-2">金額</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">applyDiscount(price, rate)</td>
+                            <td class="px-4 py-2">割引後の金額を求める</td>
+                            <td class="px-4 py-2">金額</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">addTax(price)</td>
+                            <td class="px-4 py-2">税込金額を求める</td>
+                            <td class="px-4 py-2">金額</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">formatYen(price)</td>
+                            <td class="px-4 py-2">「1,234円」の形に整える</td>
+                            <td class="px-4 py-2">文字列</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">renderResult(...)</td>
+                            <td class="px-4 py-2">計算結果をレシート形式で表示する</td>
+                            <td class="px-4 py-2 text-slate-400">なし</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">simulate()</td>
+                            <td class="px-4 py-2">入力を読み取り、料金計算と表示を行う</td>
+                            <td class="px-4 py-2 text-slate-400">なし</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">changeCount(id, step)</td>
+                            <td class="px-4 py-2">人数を増減する</td>
+                            <td class="px-4 py-2 text-slate-400">なし</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                戻り値がない関数は <code class="font-mono">return</code>
+                で値を返さず、画面の表示を変えるなど<strong>処理を実行すること</strong>が目的です。
+            </p>
+        </section>
+
+        <!-- 解説: 関数の定義と呼び出し -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">関数の定義と呼び出し</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                関数は<strong>「材料（引数）を受け取り、結果（戻り値）を返す」</strong>ひとまとまりの処理です。
+                一度定義しておけば、名前を書くだけで何度でも使えます。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">// 定義: 金額を受け取り、税込金額を返す</span>
+<span class="text-sky-300">function</span> addTax(price) {
+    <span class="text-sky-300">return</span> Math.floor(price * (<span class="text-amber-300">1</span> + TAX_RATE));
+}
+
+<span class="text-slate-500">// 呼び出し: 戻り値を変数に入れる</span>
+<span class="text-sky-300">let</span> total = addTax(<span class="text-amber-300">3060</span>);   <span class="text-slate-500">// 3366</span></code></pre>
+
+            <div class="mt-4 flex flex-col items-stretch gap-2 text-sm sm:flex-row sm:items-center">
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs font-semibold">3060</p>
+                    <p class="text-xs text-slate-500">引数（入力）</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-sky-300 bg-sky-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs font-semibold text-sky-800">addTax()</p>
+                    <p class="text-xs text-sky-700">処理</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs font-semibold text-emerald-800">3366</p>
+                    <p class="text-xs text-emerald-700">戻り値（出力）</p>
+                </div>
+            </div>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">用語</th>
+                            <th class="px-4 py-2 font-medium">意味</th>
+                            <th class="px-4 py-2 font-medium">この例</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2">引数</td>
+                            <td class="px-4 py-2">関数に渡す値</td>
+                            <td class="px-4 py-2 font-mono text-xs">price</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">戻り値</td>
+                            <td class="px-4 py-2">関数が返す結果</td>
+                            <td class="px-4 py-2 font-mono text-xs">return の右側</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">呼び出し</td>
+                            <td class="px-4 py-2">関数を実行すること</td>
+                            <td class="px-4 py-2 font-mono text-xs">addTax(3060)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 解説: 引数が複数 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">引数が複数ある関数</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                引数は <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">,</code>
+                で区切って複数渡せます。呼び出すときは、<strong>定義と同じ順番</strong>で値を並べます。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">function</span> calcRoomFee(people, pricePer30min, minutes) {
+    <span class="text-sky-300">let</span> units = minutes / <span class="text-amber-300">30</span>;          <span class="text-slate-500">// 30分単位の回数</span>
+    <span class="text-sky-300">return</span> people * pricePer30min * units;
+}
+
+calcRoomFee(<span class="text-amber-300">2</span>, <span class="text-amber-300">300</span>, <span class="text-amber-300">120</span>);   <span class="text-slate-500">// 2 * 300 * 4 → 2400</span></code></pre>
+
+            <div class="mt-4 grid grid-cols-3 gap-3 text-sm">
+                <div class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">people</p>
+                    <p class="mt-1 font-semibold">2</p>
+                    <p class="text-xs text-slate-500">人数</p>
+                </div>
+                <div class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">pricePer30min</p>
+                    <p class="mt-1 font-semibold">300</p>
+                    <p class="text-xs text-slate-500">30分の料金</p>
+                </div>
+                <div class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">minutes</p>
+                    <p class="mt-1 font-semibold">120</p>
+                    <p class="text-xs text-slate-500">利用時間</p>
+                </div>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                順番を間違えて <code class="font-mono">calcRoomFee(300, 2, 120)</code>
+                と書いても掛け算の結果は同じですが、料金と人数の意味が入れ替わってしまいます。引数の名前と順番は必ず確認しましょう。
+            </p>
+        </section>
+
+        <!-- 解説: 戻り値を別の関数へ -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">戻り値を別の関数に渡す</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                関数の戻り値は<strong>値そのもの</strong>なので、別の関数の引数にそのまま使えます。
+                内側の関数から順に実行されます。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">// 1つずつ変数に入れる書き方（calcTotal() の中身）</span>
+<span class="text-sky-300">let</span> discounted = applyDiscount(subtotal);   <span class="text-slate-500">// 3400 → 3060</span>
+<span class="text-sky-300">let</span> total = addTax(discounted);              <span class="text-slate-500">// 3060 → 3366</span>
+
+<span class="text-slate-500">// 1行にまとめた書き方（結果は同じ）</span>
+total = addTax(applyDiscount(subtotal));</code></pre>
+
+            <div class="mt-4 flex flex-col items-stretch gap-2 text-sm sm:flex-row sm:items-center">
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs font-semibold">subtotal</p>
+                    <p class="text-xs text-slate-500">3400</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs font-semibold">applyDiscount()</p>
+                    <p class="text-xs text-slate-500">3060</p>
+                </div>
+                <span class="text-center text-slate-400">→</span>
+                <div class="flex-1 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs font-semibold text-emerald-800">addTax()</p>
+                    <p class="text-xs text-emerald-700">3366</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 解説: 引数の既定値 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">引数の既定値</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                引数に <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">= 値</code>
+                を付けると、<strong>省略されたときに使う値</strong>（既定値）を決められます。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">function</span> applyDiscount(price, rate = <span class="text-amber-300">0.1</span>) {
+    <span class="text-sky-300">return</span> Math.floor(price * (<span class="text-amber-300">1</span> - rate));
+}</code></pre>
+
+            <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">コード</th>
+                            <th class="px-4 py-2 font-medium">結果</th>
+                            <th class="px-4 py-2 font-medium">説明</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">applyDiscount(3400)</td>
+                            <td class="px-4 py-2 font-mono text-xs">3060</td>
+                            <td class="px-4 py-2">rate を省略 → 0.1 を使う</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">applyDiscount(3400, 0.2)</td>
+                            <td class="px-4 py-2 font-mono text-xs">2720</td>
+                            <td class="px-4 py-2">rate を指定 → 20% 引き</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                <code class="font-mono">Math.floor()</code> は小数点以下の<strong>切り捨て</strong>です。
+                割引や税の計算で端数が出たときに、金額を整数に揃えるために使っています。
+            </p>
+        </section>
+
+        <!-- 解説: 関数を分ける理由 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">なぜ小さな関数に分けるのか</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                すべてを <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">simulate()</code>
+                に書くこともできますが、役割ごとに分けると次のような良い点があります。
+            </p>
+
+            <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">良い点</th>
+                            <th class="px-4 py-2 font-medium">このサンプルでの例</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="whitespace-nowrap px-4 py-2 align-top">使い回せる</td>
+                            <td class="px-4 py-2">大人・学生・子供の3回、同じ calcRoomFee() を呼び出している</td>
+                        </tr>
+                        <tr>
+                            <td class="whitespace-nowrap px-4 py-2 align-top">直す場所が1つ</td>
+                            <td class="px-4 py-2">料金改定は getPricePer30min()、税率の変更は TAX_RATE だけを直せばよい</td>
+                        </tr>
+                        <tr>
+                            <td class="whitespace-nowrap px-4 py-2 align-top">読みやすい</td>
+                            <td class="px-4 py-2">関数名を見るだけで、何を計算しているか分かる</td>
+                        </tr>
+                        <tr>
+                            <td class="whitespace-nowrap px-4 py-2 align-top">確認しやすい</td>
+                            <td class="px-4 py-2">formatYen(1234) のように、1つの関数だけを試せる</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                関数名は<strong>動詞＋名詞</strong>（calc〜 / get〜 / apply〜 / format〜）にすると、何をする関数なのかが伝わります。
+            </p>
+        </section>
+
+        <!-- 確認ポイント -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">確認ポイント</h2>
+            <p class="my-2 text-sm text-slate-400">ファイルを修正したら保存して、ブラウザを再読み込みしましょう。反映されないときはスーパーリロード！</p>
+            <ol class="mt-4 space-y-3">
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">1</span>
+                    <p class="text-sm leading-relaxed">平日・大人2人・120分で計算すると、ルーム料金が <strong>2,400円</strong> になる</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">2</span>
+                    <p class="text-sm leading-relaxed">ドリンクバーと会員割引を選ぶと、税込合計が <strong>3,366円</strong>（1人あたり 1,683円）になる</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">3</span>
+                    <p class="text-sm leading-relaxed">土日祝に切り替えると、料金が高くなる</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">4</span>
+                    <p class="text-sm leading-relaxed">会員割引のチェックをはずすと、税込合計が <strong>3,740円</strong> になる</p>
+                </li>
+            </ol>
+        </section>
+    </div>
+
+    <footer class="bg-slate-900 text-slate-400 text-center text-xs py-6">
+        ※ 表示金額は目安です。実際の料金は店舗でご確認ください。<br>
+        © KARA-BOX（教材用のサンプルサイトです）
+    </footer>
+
+    <script src="js/karaoke.js" defer></script>
+</body>
+
+</html>
