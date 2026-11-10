@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>セルフレジ（条件分岐）</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-white px-4 text-slate-800">
+    <main class="mx-auto w-full max-w-4xl space-y-6 py-6">
+
+        <!-- ヘッダー -->
+        <header class="rounded-2xl bg-sky-600 px-6 py-8 text-white shadow-xl">
+            <p class="text-xs font-semibold uppercase tracking-widest opacity-80">Lesson 05-2</p>
+            <h1 class="mt-1 text-3xl font-bold">条件分岐で作るセルフレジ</h1>
+            <p class="mt-2 text-sm opacity-90">画面を順番に切り替えながら、if 文・&amp;&amp;・return で処理を分けます。</p>
+        </header>
+
+        <!-- セルフレジ -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">セルフレジ</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                画面の指示に従って、レジ袋 → ポイントカード → お支払い方法 → 決済の順に進みましょう。
+            </p>
+
+            <div class="mt-4 w-full rounded-3xl border border-slate-200 bg-white p-3 shadow-lg">
+
+                <!-- 表示パネル -->
+                <div class="rounded-2xl border border-slate-200 bg-white p-5">
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm font-bold tracking-widest text-sky-600">SELF REGISTER</p>
+                        <p class="text-sm font-bold text-slate-500">お会計</p>
+                    </div>
+                    <div id="paymentDisplay" class="mt-3 text-right font-mono text-5xl font-bold text-slate-800"></div>
+                </div>
+
+                <!-- 進行バー -->
+                <div class="mt-3 flex gap-2">
+                    <div class="step-dot" data-step="1">1. レジ袋</div>
+                    <div class="step-dot" data-step="2">2. ポイント</div>
+                    <div class="step-dot" data-step="3">3. お支払い</div>
+                    <div class="step-dot" data-step="4">4. 決済</div>
+                </div>
+
+                <!-- ステップ1: レジ袋 -->
+                <div id="step1" class="step-panel mt-3 rounded-2xl border border-slate-200 bg-white p-5">
+                    <p class="text-lg font-bold">レジ袋をご利用ですか？</p>
+                    <p class="step-message mt-3 py-3 text-base text-sky-800 empty:hidden"></p>
+                    <div class="mt-4 grid grid-cols-2 gap-3">
+                        <button
+                            class="flex h-32 items-center justify-center rounded-2xl bg-sky-100 text-lg font-bold text-sky-900 hover:bg-sky-200 active:scale-95"
+                            onclick="chooseBag(true)">利用する（+¥3）</button>
+                        <button
+                            class="flex h-32 items-center justify-center rounded-2xl bg-slate-100 text-lg font-bold text-slate-700 hover:bg-slate-200 active:scale-95"
+                            onclick="chooseBag(false)">利用しない</button>
+                    </div>
+                </div>
+
+                <!-- ステップ2: ポイントカード -->
+                <div id="step2" class="step-panel mt-3 hidden rounded-2xl border border-slate-200 bg-white p-5">
+                    <p class="text-lg font-bold">ポイントカードをお持ちですか？</p>
+                    <p class="step-message mt-3 py-3 text-base text-sky-800 empty:hidden"></p>
+                    <div class="mt-4 grid grid-cols-2 items-start gap-3">
+                        <div>
+                            <button
+                                class="flex h-32 w-full flex-col items-center justify-center gap-2 rounded-2xl bg-amber-100 text-lg font-bold text-amber-900 hover:bg-amber-200 active:scale-95"
+                                onclick="scanPointCard()"><span class="text-4xl">▮▯▮▮▯</span>バーコードを読み取る</button>
+                            <p class="mt-2 text-xs leading-relaxed text-slate-500">本物のレジではバーコードをスキャンします。ここでは仮想ボタンで読み取ります。</p>
+                        </div>
+                        <button
+                            class="flex h-32 flex-col items-center justify-center gap-2 rounded-2xl bg-slate-100 text-lg font-bold text-slate-700 hover:bg-slate-200 active:scale-95"
+                            onclick="skipPointCard()"><span class="text-4xl">✖</span>持っていない</button>
+                    </div>
+                    <button class="mt-3 h-14 w-full rounded-2xl bg-slate-100 text-base font-bold text-slate-700 hover:bg-slate-200 active:scale-95" onclick="showStep(1)">← もどる</button>
+                </div>
+
+                <!-- ステップ3: 支払い方法 -->
+                <div id="step3" class="step-panel mt-3 hidden rounded-2xl border border-slate-200 bg-white p-5">
+                    <p class="text-lg font-bold">お支払い方法をえらんでください</p>
+                    <p class="step-message mt-3 py-3 text-base text-sky-800 empty:hidden"></p>
+                    <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
+                        <button
+                            class="flex h-28 flex-col items-center justify-center gap-2 rounded-2xl bg-white border border-slate-300 text-base font-bold text-slate-800 hover:bg-slate-50 focus:bg-sky-600 focus:text-white focus:outline-none active:scale-95"
+                            onclick="selectMethod('transit')"><span class="text-4xl">🚃</span>交通系IC</button>
+                        <button
+                            class="flex h-28 flex-col items-center justify-center gap-2 rounded-2xl bg-white border border-slate-300 text-base font-bold text-slate-800 hover:bg-slate-50 focus:bg-sky-600 focus:text-white focus:outline-none active:scale-95"
+                            onclick="selectMethod('emoney')"><span class="text-4xl">📱</span>電子マネー</button>
+                        <button
+                            class="flex h-28 flex-col items-center justify-center gap-2 rounded-2xl bg-white border border-slate-300 text-base font-bold text-slate-800 hover:bg-slate-50 focus:bg-sky-600 focus:text-white focus:outline-none active:scale-95"
+                            onclick="selectMethod('credit')"><span class="text-4xl">💳</span>クレジット</button>
+                        <button
+                            class="flex h-28 flex-col items-center justify-center gap-2 rounded-2xl bg-white border border-slate-300 text-base font-bold text-slate-800 hover:bg-slate-50 focus:bg-sky-600 focus:text-white focus:outline-none active:scale-95"
+                            onclick="selectMethod('qr')"><span class="text-4xl">🔳</span>QR決済</button>
+                        <button
+                            class="col-span-2 flex h-28 flex-col items-center justify-center gap-2 rounded-2xl bg-white border border-slate-300 text-base font-bold text-slate-800 hover:bg-slate-50 focus:bg-amber-500 focus:text-white focus:outline-none active:scale-95 sm:col-span-1"
+                            onclick="selectMethod('cash')"><span class="text-4xl">💴</span>現金</button>
+                    </div>
+
+                    <!-- QRコード支払いエリア -->
+                    <div id="qrArea" class="mt-4 hidden rounded-2xl border border-slate-200 bg-white p-4">
+                        <p class="mb-3 text-sm font-bold text-slate-500">QRコードをスキャンしてください</p>
+                        <div id="qrCodeBox" class="flex justify-center rounded-xl border border-slate-200 bg-white p-4">
+                            <img src="images/qr.png" alt="QRコード" class="h-44 w-44">
+                        </div>
+                    </div>
+
+                    <!-- 現金のみ「所持金」が必要 -->
+                    <div id="cashArea" class="mt-4 hidden rounded-2xl border border-slate-200 bg-white p-4">
+                        <p class="mb-3 text-sm font-bold text-slate-500">現金を入れてください</p>
+                        <div id="walletDisplay"
+                            class="rounded-xl border border-slate-200 bg-white px-4 py-3 text-right font-mono text-3xl text-slate-800">
+                            ¥0
+                        </div>
+                        <div class="mt-3 grid grid-cols-4 gap-2">
+                            <button class="rounded-xl bg-amber-100 py-4 text-lg font-bold text-amber-900 hover:bg-amber-200 active:scale-95"
+                                onclick="charge(100)">+100</button>
+                            <button class="rounded-xl bg-amber-100 py-4 text-lg font-bold text-amber-900 hover:bg-amber-200 active:scale-95"
+                                onclick="charge(500)">+500</button>
+                            <button class="rounded-xl bg-amber-100 py-4 text-lg font-bold text-amber-900 hover:bg-amber-200 active:scale-95"
+                                onclick="charge(1000)">+1000</button>
+                            <button class="rounded-xl bg-amber-100 py-4 text-lg font-bold text-amber-900 hover:bg-amber-200 active:scale-95"
+                                onclick="charge(5000)">+5000</button>
+                        </div>
+                        <button class="mt-2 w-full rounded-xl bg-slate-200 py-3 text-sm font-bold text-slate-700 hover:bg-slate-300 active:scale-95"
+                            onclick="resetWallet()">所持金クリア</button>
+                    </div>
+
+                    <div class="mt-4 flex items-center gap-3">
+                        <button class="h-16 px-6 rounded-2xl bg-slate-100 text-base font-bold text-slate-700 hover:bg-slate-200 active:scale-95" onclick="showStep(2)">← もどる</button>
+                        <button class="h-16 flex-1 rounded-2xl bg-sky-600 text-xl font-bold text-white hover:bg-sky-700 active:scale-95"
+                            onclick="goToConfirm()">次へ</button>
+                    </div>
+                </div>
+
+                <!-- ステップ4: 確認・決済 -->
+                <div id="step4" class="step-panel mt-3 hidden rounded-2xl border border-slate-200 bg-white p-5">
+                    <p class="text-lg font-bold">内容をご確認ください</p>
+                    <p class="step-message mt-3 py-3 text-base text-sky-800 empty:hidden"></p>
+                    <div class="mt-3 overflow-hidden rounded-xl border border-slate-200">
+                        <table class="w-full text-lg">
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="px-4 py-3 text-slate-500">商品</td>
+                                    <td id="sumItem" class="px-4 py-3 text-right font-mono"></td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-slate-500">レジ袋</td>
+                                    <td id="sumBag" class="px-4 py-3 text-right font-mono"></td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-slate-500">ポイントカード</td>
+                                    <td id="sumPoint" class="px-4 py-3 text-right"></td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-slate-500">お支払い方法</td>
+                                    <td id="sumMethod" class="px-4 py-3 text-right"></td>
+                                </tr>
+                                <tr class="bg-slate-50">
+                                    <td class="px-4 py-3 font-bold">合計</td>
+                                    <td id="sumTotal" class="px-4 py-3 text-right font-mono text-3xl font-bold"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mt-3 text-sm text-slate-500">本物のレジでは決済端末にタッチします。ここでは仮想ボタンで決済します。</p>
+                    <div class="mt-3 flex items-center gap-3">
+                        <button class="h-20 px-6 rounded-2xl bg-slate-100 text-base font-bold text-slate-700 hover:bg-slate-200 active:scale-95" onclick="showStep(3)">← もどる</button>
+                        <button id="payButton"
+                            class="h-20 flex-1 rounded-2xl bg-sky-600 text-2xl font-bold text-white hover:bg-sky-700 active:scale-95 disabled:bg-slate-300"
+                            onclick="handlePayment()">決済する</button>
+                    </div>
+                </div>
+
+                <!-- ステップ5: 完了 -->
+                <div id="step5" class="step-panel mt-3 hidden p-6 text-center">
+                    <p class="mt-2 text-2xl font-bold text-emerald-800">ありがとうございました</p>
+                    <p id="resultDisplay" class="mt-2 text-sm text-emerald-800"></p>
+                    <p class="step-message mt-1 text-sm text-emerald-800 empty:hidden"></p>
+                    <button class="mt-4 h-14 w-full rounded-2xl bg-sky-600 text-lg font-bold text-white hover:bg-sky-700 active:scale-95"
+                        onclick="restart()">最初に戻る</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 全体の流れ -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">処理の流れ</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                画面は5つ用意してあり、<code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">showStep(n)</code>
+                で表示する画面を切り替えます。ボタンを押すと、対応する関数が呼ばれます。
+            </p>
+
+            <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">画面</th>
+                            <th class="px-4 py-2 font-medium">ボタン</th>
+                            <th class="px-4 py-2 font-medium">呼ばれる関数</th>
+                            <th class="px-4 py-2 font-medium">やること</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2">1. レジ袋</td>
+                            <td class="px-4 py-2">利用する / しない</td>
+                            <td class="px-4 py-2 font-mono text-xs">chooseBag()</td>
+                            <td class="px-4 py-2">合計金額を変える</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">2. ポイント</td>
+                            <td class="px-4 py-2">読み取る / 持っていない</td>
+                            <td class="px-4 py-2 font-mono text-xs">scanPointCard()</td>
+                            <td class="px-4 py-2">カードの有無を覚える</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">3. お支払い</td>
+                            <td class="px-4 py-2">決済方法 / 次へ</td>
+                            <td class="px-4 py-2 font-mono text-xs">selectMethod()<br>goToConfirm()</td>
+                            <td class="px-4 py-2">表示の切り替え、入力チェック</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">4. 決済</td>
+                            <td class="px-4 py-2">決済する</td>
+                            <td class="px-4 py-2 font-mono text-xs">handlePayment()<br>completePayment()</td>
+                            <td class="px-4 py-2">現金なら所持金を引く</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">5. 完了</td>
+                            <td class="px-4 py-2">最初に戻る</td>
+                            <td class="px-4 py-2 font-mono text-xs">restart()</td>
+                            <td class="px-4 py-2">すべて初期状態に戻す</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">// メッセージは、各画面にある step-message に表示する</span>
+<span class="text-sky-300">function</span> showStatus(msg) {
+    stepMessages.forEach((el) =&gt; (el.textContent = msg));
+}
+
+<span class="text-sky-300">function</span> showStep(n) {
+    showStatus(<span class="text-emerald-300">""</span>);                                  <span class="text-slate-500">// 前の画面のメッセージを消す</span>
+    stepPanels.forEach((panel) =&gt; panel.classList.add(<span class="text-emerald-300">"hidden"</span>));
+    document.getElementById(<span class="text-emerald-300">"step"</span> + n).classList.remove(<span class="text-emerald-300">"hidden"</span>);
+
+    stepDots.forEach((dot) =&gt; {
+        <span class="text-sky-300">const</span> step = Number(dot.dataset.step);
+        <span class="text-sky-300">let</span> cls = <span class="text-emerald-300">"flex-1 rounded-lg py-2 text-center text-sm font-bold "</span>;
+
+        <span class="text-slate-500">// switch(true): case に条件式を書ける</span>
+        <span class="text-sky-300">switch</span> (<span class="text-sky-300">true</span>) {
+            <span class="text-sky-300">case</span> step === n:                     <span class="text-slate-500">// 今の画面</span>
+                cls += <span class="text-emerald-300">"bg-sky-600 text-white"</span>;
+                <span class="text-sky-300">break</span>;
+            <span class="text-sky-300">case</span> step &lt; n:                      <span class="text-slate-500">// 終わった画面</span>
+                cls += <span class="text-emerald-300">"bg-sky-100 text-sky-700"</span>;
+                <span class="text-sky-300">break</span>;
+            <span class="text-sky-300">default</span>:                          <span class="text-slate-500">// これからの画面</span>
+                cls += <span class="text-emerald-300">"bg-slate-100 text-slate-400"</span>;
+        }
+        dot.className = cls;
+    });
+}</code></pre>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                ボタンの <code class="font-mono">onclick="chooseBag(true)"</code> は、「押されたらこの関数を呼ぶ」という指定です。
+                入門向けの書き方で、どの関数が動くのかを HTML から読み取れます。
+                実務では、JS 側から <code class="font-mono">addEventListener</code> でイベントを付けるのが一般的です。あとの章で学びます。
+            </p>
+
+            <p class="mt-3 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                「残高不足です。」などのメッセージは、<strong>お客さんが操作している画面の中</strong>に表示します。
+                <code class="font-mono">showStep()</code> は前のメッセージを消すので、
+                画面を切り替えるときは<strong>先に <code class="font-mono">showStep()</code>、あとで <code class="font-mono">showStatus()</code></strong> の順に呼びます。
+            </p>
+
+            <p class="mt-3 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                <code class="font-mono">switch (true)</code> と書くと、<code class="font-mono">case</code> に
+                <code class="font-mono">step === n</code> や <code class="font-mono">step &lt; n</code> のような<strong>条件式</strong>を書けます。
+                上から順に調べて、最初に true になった case を実行します。どれも当てはまらなければ <code class="font-mono">default</code> です。
+                値が一致するか調べる普通の switch（<code class="font-mono">switch (weekday)</code>）との違いを、見比べてみましょう。
+            </p>
+        </section>
+
+        <!-- 状態を覚える -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">1. 選択を変数に覚えて、合計を変える</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                「レジ袋を使うか」「ポイントカードがあるか」は、関数の外の変数に覚えておきます。
+                レジ袋を使うときだけ、合計に <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">BAG_PRICE</code> を足します。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">let</span> useBag = <span class="text-amber-300">false</span>;         <span class="text-slate-500">// レジ袋を使うか（true / false）</span>
+<span class="text-sky-300">let</span> hasPointCard = <span class="text-amber-300">false</span>;   <span class="text-slate-500">// ポイントカードを読み取ったか</span>
+
+<span class="text-sky-300">function</span> getTotal() {
+    <span class="text-sky-300">return</span> ITEM_AMOUNT + (useBag ? BAG_PRICE : <span class="text-amber-300">0</span>);
+}
+
+<span class="text-sky-300">function</span> chooseBag(flag) {
+    useBag = flag;
+    updateTotal();
+    showStep(<span class="text-amber-300">2</span>);      <span class="text-slate-500">// 先に次の画面へ</span>
+    <span class="text-sky-300">if</span> (useBag) {
+        showStatus(<span class="text-emerald-300">`レジ袋を追加しました。（+${yen(BAG_PRICE)}）`</span>);
+    } <span class="text-sky-300">else</span> {
+        showStatus(<span class="text-emerald-300">"レジ袋は使いません。"</span>);
+    }
+}</code></pre>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                <code class="font-mono">条件 ? A : B</code> は<strong>三項演算子</strong>で、条件が true なら A、false なら B になります。
+                <code class="font-mono">if – else</code> を1行で書いたものです。
+            </p>
+        </section>
+
+        <!-- 画面の切り替え -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">2. 決済方法で表示を切り替える</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                現金なら入金エリア、QR決済ならQRコードを表示します。表示と非表示は、
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">hidden</code>
+                というクラスを外したり付けたりして切り替えます。画面そのものを切り替える
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">showStep()</code> も、同じ仕組みです。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">function</span> selectMethod(methodKey) {
+    selectedMethod = methodKey;
+
+    <span class="text-slate-500">// いったんすべて非表示</span>
+    cashArea.classList.add(<span class="text-emerald-300">"hidden"</span>);
+    qrArea.classList.add(<span class="text-emerald-300">"hidden"</span>);
+
+    <span class="text-sky-300">if</span> (methodKey === <span class="text-emerald-300">"cash"</span>) {
+        cashArea.classList.remove(<span class="text-emerald-300">"hidden"</span>);       <span class="text-slate-500">// 現金: 入金エリアを表示</span>
+    } <span class="text-sky-300">else if</span> (methodKey === <span class="text-emerald-300">"qr"</span>) {
+        showQrCode();
+        qrArea.classList.remove(<span class="text-emerald-300">"hidden"</span>);         <span class="text-slate-500">// QR: QRコードを表示</span>
+    }
+    <span class="text-slate-500">// 他の方法は何も表示しない（else は不要）</span>
+}</code></pre>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">決済方法</th>
+                            <th class="px-4 py-2 font-medium">methodKey</th>
+                            <th class="px-4 py-2 font-medium">表示するもの</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2">現金</td>
+                            <td class="px-4 py-2 font-mono text-xs">cash</td>
+                            <td class="px-4 py-2">入金エリア</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">QR決済</td>
+                            <td class="px-4 py-2 font-mono text-xs">qr</td>
+                            <td class="px-4 py-2">QRコード</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">交通系IC・電子マネー・クレジット</td>
+                            <td class="px-4 py-2 font-mono text-xs">transit / emoney / credit</td>
+                            <td class="px-4 py-2">なし</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                先に全部隠しておくと、前に選んだ方法の表示が残りません。
+            </p>
+        </section>
+
+        <!-- 次へ進む前のチェック -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">3. 次へ進む前のチェック（return）</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                進めない場合は、メッセージを出して
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">return</code>
+                で関数を<strong>そこで終わらせます</strong>。これで、確認画面には進みません。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">function</span> goToConfirm() {
+    <span class="text-slate-500">// 決済方法が未選択（"" は false として扱われる）</span>
+    <span class="text-sky-300">if</span> (!selectedMethod) {
+        showStatus(<span class="text-emerald-300">"決済方法を選択してください。"</span>);
+        <span class="text-sky-300">return</span>;
+    }
+
+    <span class="text-slate-500">// 現金で、かつ所持金が足りない</span>
+    <span class="text-sky-300">if</span> (selectedMethod === <span class="text-emerald-300">"cash"</span> <span class="text-sky-300">&amp;&amp;</span> money &lt; getTotal()) {
+        showStatus(<span class="text-emerald-300">"残高不足です。チャージしてください。"</span>);
+        <span class="text-sky-300">return</span>;
+    }
+
+    renderSummary();
+    showStep(<span class="text-amber-300">4</span>);      <span class="text-slate-500">// 確認画面へ</span>
+    showStatus(<span class="text-emerald-300">"内容をご確認ください。"</span>);
+}</code></pre>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">書き方</th>
+                            <th class="px-4 py-2 font-medium">意味</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">!selectedMethod</td>
+                            <td class="px-4 py-2">selectedMethod が空（未選択）のとき true</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">A &amp;&amp; B</td>
+                            <td class="px-4 py-2">A かつ B（両方 true のときだけ true）</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">return;</td>
+                            <td class="px-4 py-2">関数をここで終了する</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                残高不足のチェックを <code class="font-mono">selectedMethod === "cash"</code> と
+                <code class="font-mono">&amp;&amp;</code> でつなぐのは、<strong>現金のときだけ</strong>所持金を確認したいからです。
+                クレジットなどでは、所持金が 0 でも決済できます。
+            </p>
+        </section>
+
+        <!-- 決済完了 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">4. 決済完了の処理</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                現金のときだけ、お会計の金額を所持金から引きます。ポイントカードを読み取っていれば、合計の1%をポイントとして付与します。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">function</span> completePayment() {
+    <span class="text-sky-300">if</span> (selectedMethod === <span class="text-emerald-300">"cash"</span>) {
+        money -= getTotal();         <span class="text-slate-500">// 所持金から引く</span>
+        updateWallet();              <span class="text-slate-500">// 画面の所持金を更新</span>
+    }
+
+    <span class="text-sky-300">if</span> (hasPointCard) {
+        <span class="text-sky-300">const</span> point = Math.floor(getTotal() * POINT_RATE);
+        resultDisplay.textContent = <span class="text-emerald-300">`${point} ポイント付与しました。`</span>;
+    } <span class="text-sky-300">else</span> {
+        resultDisplay.textContent = <span class="text-emerald-300">"ポイントカードは使用されませんでした。"</span>;
+    }
+
+    showStep(<span class="text-amber-300">5</span>);      <span class="text-slate-500">// 完了画面へ</span>
+    showStatus(<span class="text-emerald-300">"決済が完了しました。"</span>);
+}</code></pre>
+
+            <div class="mt-4 flex flex-col items-stretch gap-2 text-sm sm:flex-row sm:items-center">
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">money</p>
+                    <p class="font-semibold">¥2,000</p>
+                </div>
+                <span class="text-center text-slate-400">→ 決済(¥1,500) →</span>
+                <div class="flex-1 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs text-emerald-700">money</p>
+                    <p class="font-semibold text-emerald-800">¥500</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 確認ポイント -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">確認ポイント</h2>
+            <p class="my-2 text-sm text-slate-400">ファイルを修正したら保存して、ブラウザを再読み込みしましょう。反映されないときはスーパーリロード！</p>
+            <ol class="mt-4 space-y-3">
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">1</span>
+                    <p class="text-sm leading-relaxed">「レジ袋を利用する」を押すと、合計が <strong>¥1,503</strong> になり、「利用しない」なら <strong>¥1,500</strong> のまま</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">2</span>
+                    <p class="text-sm leading-relaxed">レジ袋 → ポイントカード → お支払い → 決済 の順に<strong>画面が切り替わり</strong>、進行バーの色も変わる</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">3</span>
+                    <p class="text-sm leading-relaxed">「現金」を押すと入金エリアが、「QR決済」を押すとQRコードが表示される</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">4</span>
+                    <p class="text-sm leading-relaxed">「交通系IC」「電子マネー」「クレジット」を押すと、どちらのエリアも<strong>表示されない</strong></p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">5</span>
+                    <p class="text-sm leading-relaxed">決済方法を選ばずに「次へ」を押すと、<strong>決済方法を選択してください。</strong>と表示され、先へ進めない</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">6</span>
+                    <p class="text-sm leading-relaxed">現金で所持金が足りないとき、<strong>残高不足です。</strong>と表示される。クレジットなら所持金 ¥0 でも進める</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">7</span>
+                    <p class="text-sm leading-relaxed">現金で決済すると、所持金から合計金額が引かれる</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">8</span>
+                    <p class="text-sm leading-relaxed">ポイントカードを読み取ると、完了画面に <strong>15 ポイント付与</strong>と表示される（持っていないときは表示が変わる）</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">9</span>
+                    <p class="text-sm leading-relaxed">決済中にビープ音、完了時にファンファーレが鳴り、「最初に戻る」で最初の画面に戻る</p>
+                </li>
+            </ol>
+        </section>
+    </main>
+
+    <audio id="beep" src="audios/beep_beep.wav"></audio>
+    <audio id="fanfare" src="audios/fanfare.wav"></audio>
+
+    <script src="js/payment.js" defer></script>
+</body>
+
+</html>

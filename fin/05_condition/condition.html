@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件式と分岐</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-white px-4 text-slate-800">
+    <main class="mx-auto w-full max-w-2xl space-y-6 py-6">
+
+        <!-- ヘッダー -->
+        <header class="rounded-2xl bg-sky-600 px-6 py-8 text-white shadow-xl">
+            <p class="text-xs font-semibold uppercase tracking-widest opacity-80">Lesson 05-1</p>
+            <h1 class="mt-1 text-3xl font-bold">条件式と分岐</h1>
+            <p class="mt-2 text-sm opacity-90">条件によって処理を切り替える、if 文と switch 文の書き方を確認します。</p>
+        </header>
+
+        <!-- 比較演算子 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">条件式（比較演算子）</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                2つの値を比べる式を<strong>条件式</strong>と呼びます。結果は
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">true</code>（成り立つ）か
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">false</code>（成り立たない）のどちらかになります。
+            </p>
+
+            <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">演算子</th>
+                            <th class="px-4 py-2 font-medium">意味</th>
+                            <th class="px-4 py-2 font-medium">例（price = 500）</th>
+                            <th class="px-4 py-2 font-medium">結果</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">==</td>
+                            <td class="px-4 py-2">等しい</td>
+                            <td class="px-4 py-2 font-mono text-xs">price == 500</td>
+                            <td class="px-4 py-2 font-mono text-xs">true</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">&lt;</td>
+                            <td class="px-4 py-2">より小さい</td>
+                            <td class="px-4 py-2 font-mono text-xs">price &lt; 0</td>
+                            <td class="px-4 py-2 font-mono text-xs">false</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">&gt;</td>
+                            <td class="px-4 py-2">より大きい</td>
+                            <td class="px-4 py-2 font-mono text-xs">price &gt; 500</td>
+                            <td class="px-4 py-2 font-mono text-xs">false</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">&gt;=</td>
+                            <td class="px-4 py-2">以上</td>
+                            <td class="px-4 py-2 font-mono text-xs">price &gt;= 500</td>
+                            <td class="px-4 py-2 font-mono text-xs">true</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">&lt;=</td>
+                            <td class="px-4 py-2">以下</td>
+                            <td class="px-4 py-2 font-mono text-xs">price &lt;= 500</td>
+                            <td class="px-4 py-2 font-mono text-xs">true</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">!=</td>
+                            <td class="px-4 py-2">等しくない</td>
+                            <td class="px-4 py-2 font-mono text-xs">price != 500</td>
+                            <td class="px-4 py-2 font-mono text-xs">false</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">let</span> price = <span class="text-amber-300">500</span>;
+
+<span class="text-sky-300">let</span> a = price == <span class="text-amber-300">500</span>;   <span class="text-slate-500">// true</span>
+<span class="text-sky-300">let</span> b = price &lt; <span class="text-amber-300">0</span>;      <span class="text-slate-500">// false</span>
+<span class="text-sky-300">let</span> c = price &gt;= <span class="text-amber-300">500</span>;  <span class="text-slate-500">// true</span></code></pre>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                <code class="font-mono">=</code> は「代入」、<code class="font-mono">==</code> は「等しいか比べる」です。
+                書き間違えやすいので注意しましょう。（型まで厳密に比べる <code class="font-mono">===</code> もあります）
+            </p>
+        </section>
+
+        <!-- if 文 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">if 文</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                条件式が <strong>true のときだけ</strong>、{ } の中の処理を実行します。false のときは何もせず、次へ進みます。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">let</span> price = <span class="text-amber-300">500</span>;
+<span class="text-sky-300">let</span> money = <span class="text-amber-300">1000</span>;
+<span class="text-sky-300">let</span> message = <span class="text-emerald-300">""</span>;
+
+<span class="text-slate-500">// money が price 以上のときだけ実行</span>
+<span class="text-sky-300">if</span> (money &gt;= price) {
+    message = <span class="text-emerald-300">"決済完了"</span>;
+}</code></pre>
+
+            <div class="mt-4 flex flex-col items-stretch gap-2 text-sm sm:flex-row sm:items-center">
+                <div class="flex-1 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs text-slate-500">条件式</p>
+                    <p class="font-semibold">money &gt;= price</p>
+                </div>
+                <span class="text-center text-slate-400">→ true →</span>
+                <div class="flex-1 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-center">
+                    <p class="font-mono text-xs text-emerald-700">実行する処理</p>
+                    <p class="font-semibold text-emerald-800">"決済完了"</p>
+                </div>
+            </div>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">部分</th>
+                            <th class="px-4 py-2 font-medium">役割</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">if ( )</td>
+                            <td class="px-4 py-2">( ) の中に条件式を書く</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">{ }</td>
+                            <td class="px-4 py-2">条件が true のときに実行する処理を書く</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- if else if else -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">if – else if – else</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                条件が複数あるときは、<strong>上から順に</strong>チェックします。最初に true になった { } だけを実行し、残りは飛ばします。
+                どの条件にも当てはまらないときは <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">else</code> が実行されます。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">let</span> message2 = <span class="text-emerald-300">""</span>;
+
+<span class="text-sky-300">if</span> (price &lt; <span class="text-amber-300">0</span>) {
+    message2 = <span class="text-emerald-300">"価格エラー"</span>;       <span class="text-slate-500">// 1. price が 0 未満</span>
+} <span class="text-sky-300">else if</span> (money &gt;= price) {
+    message2 = <span class="text-emerald-300">"決済完了"</span>;         <span class="text-slate-500">// 2. money が price 以上</span>
+} <span class="text-sky-300">else</span> {
+    message2 = <span class="text-emerald-300">"残高不足"</span>;         <span class="text-slate-500">// 3. それ以外</span>
+}</code></pre>
+
+            <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">順番</th>
+                            <th class="px-4 py-2 font-medium">条件</th>
+                            <th class="px-4 py-2 font-medium">結果</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2">1</td>
+                            <td class="px-4 py-2 font-mono text-xs">price &lt; 0</td>
+                            <td class="px-4 py-2">価格エラー</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">2</td>
+                            <td class="px-4 py-2 font-mono text-xs">money &gt;= price</td>
+                            <td class="px-4 py-2">決済完了</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">3</td>
+                            <td class="px-4 py-2">それ以外（else）</td>
+                            <td class="px-4 py-2">残高不足</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                price = 500、money = 1000 のときは、1 は false、2 が true なので <strong>決済完了</strong> になります。
+                <code class="font-mono">money</code> や <code class="font-mono">price</code> の値を変えて、結果が変わることを確かめましょう。
+            </p>
+        </section>
+
+        <!-- switch -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">switch 文</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                1つの値が<strong>何と等しいか</strong>で処理を分けるときは、switch 文が便利です。
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">case</code> に一致した処理から実行されます。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">// 曜日インデックス（0:日 1:月 2:火 3:水 4:木 5:金 6:土）</span>
+<span class="text-sky-300">let</span> weekday = <span class="text-amber-300">4</span>;
+<span class="text-sky-300">let</span> trash = <span class="text-emerald-300">""</span>;
+
+<span class="text-sky-300">switch</span> (weekday) {
+    <span class="text-sky-300">case</span> <span class="text-amber-300">1</span>:   <span class="text-slate-500">// 月</span>
+    <span class="text-sky-300">case</span> <span class="text-amber-300">5</span>:   <span class="text-slate-500">// 金</span>
+        trash = <span class="text-emerald-300">"燃えるゴミ"</span>;
+        <span class="text-sky-300">break</span>;
+    <span class="text-sky-300">case</span> <span class="text-amber-300">4</span>:   <span class="text-slate-500">// 木</span>
+        trash = <span class="text-emerald-300">"燃えないゴミ"</span>;
+        <span class="text-sky-300">break</span>;
+    <span class="text-sky-300">default</span>:
+        trash = <span class="text-emerald-300">"回収なし"</span>;
+}</code></pre>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">部分</th>
+                            <th class="px-4 py-2 font-medium">役割</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">switch (値)</td>
+                            <td class="px-4 py-2">比べる対象の値を指定</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">case 値:</td>
+                            <td class="px-4 py-2">その値と等しいときに実行する処理</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">break</td>
+                            <td class="px-4 py-2">switch 文から抜ける</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">default:</td>
+                            <td class="px-4 py-2">どの case にも一致しないときの処理</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                <code class="font-mono">break</code> を書き忘れると、次の case の処理まで続けて実行されてしまいます。
+                上の <code class="font-mono">case 1:</code> のように処理を書かずに並べると、「月 または 金」の意味になります。
+            </p>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">曜日</th>
+                            <th class="px-4 py-2 font-medium">日</th>
+                            <th class="px-4 py-2 font-medium">月</th>
+                            <th class="px-4 py-2 font-medium">火</th>
+                            <th class="px-4 py-2 font-medium">水</th>
+                            <th class="px-4 py-2 font-medium">木</th>
+                            <th class="px-4 py-2 font-medium">金</th>
+                            <th class="px-4 py-2 font-medium">土</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="px-4 py-2 text-slate-500">インデックス</td>
+                            <td class="px-4 py-2 font-mono text-xs">0</td>
+                            <td class="px-4 py-2 font-mono text-xs">1</td>
+                            <td class="px-4 py-2 font-mono text-xs">2</td>
+                            <td class="px-4 py-2 font-mono text-xs">3</td>
+                            <td class="px-4 py-2 font-mono text-xs">4</td>
+                            <td class="px-4 py-2 font-mono text-xs">5</td>
+                            <td class="px-4 py-2 font-mono text-xs">6</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                曜日は 0（日）から 6（土）の<strong>番号（インデックス）</strong>で表します。
+                <code class="font-mono">new Date().getDay()</code> を使うと、今日の曜日の番号を取得できます。
+            </p>
+        </section>
+
+        <!-- 実行結果 -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">実行結果</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">condition.js</code>
+                の処理結果が、ここに1行ずつ表示されます。
+            </p>
+
+            <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
+                <div id="resultTable" class="divide-y divide-slate-100 text-sm font-mono">
+                    <!-- JS がここへ行を追加 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 確認ポイント -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">確認ポイント</h2>
+            <p class="my-2 text-sm text-slate-400">ファイルを修正したら保存して、ブラウザを再読み込みしましょう。反映されないときはスーパーリロード！</p>
+            <ol class="mt-4 space-y-3">
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">1</span>
+                    <p class="text-sm leading-relaxed">比較の結果が、順に <strong>true / false / false / true</strong> になっている</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">2</span>
+                    <p class="text-sm leading-relaxed">if 文の結果が <strong>決済完了</strong> になっている</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">3</span>
+                    <p class="text-sm leading-relaxed">Else if の結果が <strong>決済完了</strong> になっている</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">4</span>
+                    <p class="text-sm leading-relaxed"><code class="font-mono">money = 300</code> に変えると <strong>残高不足</strong>、<code
+                            class="font-mono">price = -1</code> に変えると <strong>価格エラー</strong> になる</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">5</span>
+                    <p class="text-sm leading-relaxed">曜日(4) の結果が <strong>燃えないゴミ</strong> になっている</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">6</span>
+                    <p class="text-sm leading-relaxed"><code class="font-mono">weekday</code> を <code class="font-mono">1</code>、<code class="font-mono">5</code>、<code class="font-mono">0</code> に変えると、<strong>燃えるゴミ / 燃えるゴミ / 回収なし</strong> になる</p>
+                </li>
+            </ol>
+        </section>
+    </main>
+
+    <!-- 外部JS -->
+    <script src="js/condition.js"></script>
+</body>
+
+</html>
