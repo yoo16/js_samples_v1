@@ -479,6 +479,83 @@
             </div>
         </section>
 
+        <!-- setTimeout -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">5. 少し待ってから実行する（setTimeout）</h2>
+            <p class="mt-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-xs leading-relaxed text-amber-900">
+                <strong>注意:</strong> このレジでは、通信の待ち時間を<strong>まねるため</strong>に setTimeout() を使っています。
+                実際の API 通信では、setTimeout() で「このくらい待てば終わるはず」と決めて使ってはいけません。
+                通信にかかる時間は毎回変わるので、早すぎると結果が届く前に次へ進み、遅すぎると無駄に待たせてしまいます。
+                通信の完了を待つときは、<code class="font-mono">fetch()</code> と
+                <code class="font-mono">async / await</code>（または <code class="font-mono">then()</code>）を使います。あとの章で学びます。
+            </p>
+
+            <p class="mt-4 text-sm leading-relaxed text-slate-600">
+                本物のレジは、決済端末と通信するので、少し時間がかかります。この待ち時間を再現するために、
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">setTimeout()</code>
+                を使います。指定した時間が過ぎてから、<strong>1回だけ</strong>関数を実行します。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">function</span> handlePayment() {
+    payButton.disabled = <span class="text-amber-300">true</span>;                <span class="text-slate-500">// 待っている間は押せない</span>
+    showStatus(<span class="text-emerald-300">"決済処理中です..."</span>);
+
+    <span class="text-slate-500">// 1800ミリ秒（1.8秒）後に completePayment() を実行</span>
+    setTimeout(() =&gt; completePayment(), <span class="text-amber-300">1800</span>);
+
+    <span class="text-slate-500">// ↑ ここは待たずに、すぐ次の行へ進む</span>
+}</code></pre>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">書き方</th>
+                            <th class="px-4 py-2 font-medium">意味</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">setTimeout(関数, 時間)</td>
+                            <td class="px-4 py-2">時間（ミリ秒）が過ぎてから、関数を1回だけ実行</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">setInterval(関数, 時間)</td>
+                            <td class="px-4 py-2">時間（ミリ秒）ごとに、関数を繰り返し実行（04 関数で学習）</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">1000</td>
+                            <td class="px-4 py-2">1000ミリ秒 = 1秒（1800 なら 1.8秒）</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 text-sm leading-relaxed text-slate-600">
+                setTimeout() の次の行は、待たずにすぐ実行されます。待っているのは
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">completePayment()</code>
+                だけです。実行の順番を、確かめてみましょう。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code>console.log(<span class="text-emerald-300">"1. 決済ボタンが押された"</span>);
+
+setTimeout(() =&gt; {
+    console.log(<span class="text-emerald-300">"3. 1.8秒後に実行される"</span>);
+}, <span class="text-amber-300">1800</span>);
+
+console.log(<span class="text-emerald-300">"2. 待たずにすぐ実行される"</span>);
+
+<span class="text-slate-500">// 表示される順番: 1 → 2 → （1.8秒後）→ 3</span></code></pre>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                <code class="font-mono">setTimeout(completePayment, 1800)</code> のように、関数名だけを渡すこともできます。
+                ( ) を付けて <code class="font-mono">setTimeout(completePayment(), 1800)</code> と書くと、
+                待たずにその場で実行されてしまうので注意しましょう。（<code class="font-mono">window.onload = showTokyo;</code> と同じ考え方です）
+            </p>
+        </section>
+
         <!-- 確認ポイント -->
         <section class="rounded-2xl bg-white p-6 shadow">
             <h2 class="text-lg font-bold">確認ポイント</h2>
