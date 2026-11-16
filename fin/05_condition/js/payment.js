@@ -241,9 +241,7 @@ function handlePayment() {
 
     showStatus("決済処理中です...");
     // ビープ音再生
-    if (isAudioPlay) {
-        audioBeep.play();
-    }
+    if (isAudioPlay) audioBeep.play();
 
     // 疑似処理待機: setTimeout() で 1.8 秒後に completePayment() を実行
     setTimeout(() => completePayment(), 1800);
@@ -257,9 +255,7 @@ function completePayment() {
     }
 
     // 決済完了ファンファーレ再生
-    if (isAudioPlay) {
-        audioFanfare.play();
-    }
+    if (isAudioPlay) audioFanfare.play();
 
     // ポイントカードを読み取っていれば、ポイントを付与
     if (hasPointCard) {
