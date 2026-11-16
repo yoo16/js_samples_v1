@@ -82,20 +82,20 @@
                     <p class="step-message mt-3 py-3 text-base text-sky-800 empty:hidden"></p>
                     <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
                         <button
-                            class="flex h-28 flex-col items-center justify-center gap-2 rounded-2xl bg-white border border-slate-300 text-base font-bold text-slate-800 hover:bg-slate-50 focus:bg-sky-600 focus:text-white focus:outline-none active:scale-95"
-                            onclick="selectMethod('transit')"><span class="text-4xl">🚃</span>交通系IC</button>
+                            class="flex h-28 flex-col items-center justify-center gap-2 rounded-2xl bg-white border border-slate-300 text-base font-bold text-slate-800 hover:bg-slate-50 aria-pressed:bg-sky-600 aria-pressed:text-white focus:outline-none active:scale-95"
+                            data-method="transit" aria-pressed="false" onclick="selectMethod('transit')">交通系IC</button>
                         <button
-                            class="flex h-28 flex-col items-center justify-center gap-2 rounded-2xl bg-white border border-slate-300 text-base font-bold text-slate-800 hover:bg-slate-50 focus:bg-sky-600 focus:text-white focus:outline-none active:scale-95"
-                            onclick="selectMethod('emoney')"><span class="text-4xl">📱</span>電子マネー</button>
+                            class="flex h-28 flex-col items-center justify-center gap-2 rounded-2xl bg-white border border-slate-300 text-base font-bold text-slate-800 hover:bg-slate-50 aria-pressed:bg-sky-600 aria-pressed:text-white focus:outline-none active:scale-95"
+                            data-method="emoney" aria-pressed="false" onclick="selectMethod('emoney')">電子マネー</button>
                         <button
-                            class="flex h-28 flex-col items-center justify-center gap-2 rounded-2xl bg-white border border-slate-300 text-base font-bold text-slate-800 hover:bg-slate-50 focus:bg-sky-600 focus:text-white focus:outline-none active:scale-95"
-                            onclick="selectMethod('credit')"><span class="text-4xl">💳</span>クレジット</button>
+                            class="flex h-28 flex-col items-center justify-center gap-2 rounded-2xl bg-white border border-slate-300 text-base font-bold text-slate-800 hover:bg-slate-50 aria-pressed:bg-sky-600 aria-pressed:text-white focus:outline-none active:scale-95"
+                            data-method="credit" aria-pressed="false" onclick="selectMethod('credit')">クレジット</button>
                         <button
-                            class="flex h-28 flex-col items-center justify-center gap-2 rounded-2xl bg-white border border-slate-300 text-base font-bold text-slate-800 hover:bg-slate-50 focus:bg-sky-600 focus:text-white focus:outline-none active:scale-95"
-                            onclick="selectMethod('qr')"><span class="text-4xl">🔳</span>QR決済</button>
+                            class="flex h-28 flex-col items-center justify-center gap-2 rounded-2xl bg-white border border-slate-300 text-base font-bold text-slate-800 hover:bg-slate-50 aria-pressed:bg-sky-600 aria-pressed:text-white focus:outline-none active:scale-95"
+                            data-method="qr" aria-pressed="false" onclick="selectMethod('qr')">QR決済</button>
                         <button
-                            class="col-span-2 flex h-28 flex-col items-center justify-center gap-2 rounded-2xl bg-white border border-slate-300 text-base font-bold text-slate-800 hover:bg-slate-50 focus:bg-amber-500 focus:text-white focus:outline-none active:scale-95 sm:col-span-1"
-                            onclick="selectMethod('cash')"><span class="text-4xl">💴</span>現金</button>
+                            class="col-span-2 flex h-28 flex-col items-center justify-center gap-2 rounded-2xl bg-white border border-slate-300 text-base font-bold text-slate-800 hover:bg-slate-50 aria-pressed:bg-amber-500 aria-pressed:text-white focus:outline-none active:scale-95 sm:col-span-1"
+                            data-method="cash" aria-pressed="false" onclick="selectMethod('cash')">現金</button>
                     </div>
 
                     <!-- QRコード支払いエリア -->

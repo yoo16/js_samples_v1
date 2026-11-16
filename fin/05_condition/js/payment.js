@@ -26,7 +26,7 @@ const BAG_PRICE = 3;        // レジ袋の値段
 const POINT_RATE = 0.01;    // ポイント還元率（1%）
 
 // ===========================
-// 状態（レジの中で覚えておく値）
+// 状態（レジの中で覚えておく値） ※ブラウザを再読み込みするとリセットされる
 // ===========================
 let useBag = false;          // レジ袋を使うか
 let hasPointCard = false;    // ポイントカードを読み取ったか
@@ -146,6 +146,8 @@ function skipPointCard() {
 function selectMethod(methodKey) {
     // 選択された決済方法を記録
     selectedMethod = methodKey;
+    // 選択中のボタンをハイライト（戻ってきたときも残る）
+    updateMethodButtons();
     // 選択された決済方法のラベルを取得
     let methodLabel = METHOD_LABEL[methodKey];
     // 選択された決済方法を表示
@@ -165,6 +167,13 @@ function selectMethod(methodKey) {
         qrArea.classList.remove("hidden");
     }
     // 他の決済方法の時は特に表示なし
+}
+
+// 選択中の決済方法ボタンだけ aria-pressed を true にする
+function updateMethodButtons() {
+    document.querySelectorAll("[data-method]").forEach((btn) => {
+        btn.setAttribute("aria-pressed", btn.dataset.method === selectedMethod);
+    });
 }
 
 // チャージ（現金用）
@@ -279,6 +288,7 @@ function restart() {
     // 決済方法をリセット
     cashArea.classList.add("hidden");
     qrArea.classList.add("hidden");
+    updateMethodButtons();
     // 合計金額を更新
     updateTotal();
     // ステップを 1 に戻す

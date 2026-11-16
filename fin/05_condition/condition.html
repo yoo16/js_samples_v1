@@ -295,12 +295,39 @@
             <h2 class="text-lg font-bold">実行結果</h2>
             <p class="mt-2 text-sm leading-relaxed text-slate-600">
                 <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">condition.js</code>
-                の処理結果が、ここに1行ずつ表示されます。
+                の処理結果が、ここに表示されます。
             </p>
 
             <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
                 <div id="resultTable" class="divide-y divide-slate-100 text-sm font-mono">
-                    <!-- JS がここへ行を追加 -->
+                    <div class="flex justify-between p-2 hover:bg-gray-50">
+                        <div class="font-medium text-gray-700">price == 500</div>
+                        <div id="result1" class="text-gray-600"></div>
+                    </div>
+                    <div class="flex justify-between p-2 hover:bg-gray-50">
+                        <div class="font-medium text-gray-700">price &lt; 0</div>
+                        <div id="result2" class="text-gray-600"></div>
+                    </div>
+                    <div class="flex justify-between p-2 hover:bg-gray-50">
+                        <div class="font-medium text-gray-700">price &gt; 500</div>
+                        <div id="result3" class="text-gray-600"></div>
+                    </div>
+                    <div class="flex justify-between p-2 hover:bg-gray-50">
+                        <div class="font-medium text-gray-700">price &gt;= 500</div>
+                        <div id="result4" class="text-gray-600"></div>
+                    </div>
+                    <div class="flex justify-between p-2 hover:bg-gray-50">
+                        <div class="font-medium text-gray-700">If statement:</div>
+                        <div id="message1" class="text-gray-600"></div>
+                    </div>
+                    <div class="flex justify-between p-2 hover:bg-gray-50">
+                        <div class="font-medium text-gray-700">Else if:</div>
+                        <div id="message2" class="text-gray-600"></div>
+                    </div>
+                    <div class="flex justify-between p-2 hover:bg-gray-50">
+                        <div class="font-medium text-gray-700">曜日</div>
+                        <div id="trashResult" class="text-gray-600"></div>
+                    </div>
                 </div>
             </div>
         </section>
