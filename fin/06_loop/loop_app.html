@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>繰り返し</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-white px-4 text-slate-800">
+    <main class="mx-auto w-full max-w-4xl space-y-6 py-6">
+
+        <!-- ヘッダー -->
+        <header class="rounded-2xl bg-sky-600 px-6 py-8 text-white shadow-xl">
+            <p class="text-xs font-semibold uppercase tracking-widest opacity-80">Lesson 06</p>
+            <h1 class="mt-1 text-3xl font-bold">繰り返しで作るプルダウンと積立シミュレーター</h1>
+            <p class="mt-2 text-sm opacity-90">for 文と while 文で、同じ処理を何度も繰り返す書き方を確認します。</p>
+        </header>
+
+        <!-- 1. 年齢プルダウン -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">年齢選択プルダウン</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                0 歳から 100 歳まで、101 個の選択肢を<strong>for 文</strong>で作ります。
+                HTML には <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">&lt;select&gt;</code> だけを書いておき、中身は JavaScript で追加します。
+            </p>
+
+            <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-5">
+                <label for="age-select" class="block text-sm font-bold text-slate-500">年齢を選択してください</label>
+                <!-- JS が option を追加する -->
+                <select id="age-select"
+                    class="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-lg sm:w-60"></select>
+            </div>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">const</span> minAge = <span class="text-amber-300">0</span>;
+<span class="text-sky-300">const</span> maxAge = <span class="text-amber-300">100</span>;
+
+<span class="text-slate-500">// minAge から maxAge まで、1 ずつ増やしながら繰り返す</span>
+<span class="text-sky-300">for</span> (<span class="text-sky-300">let</span> index = minAge; index &lt;= maxAge; index++) {
+    addOptionTag(index);
+}</code></pre>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">部分</th>
+                            <th class="px-4 py-2 font-medium">書き方</th>
+                            <th class="px-4 py-2 font-medium">意味</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2">初期化</td>
+                            <td class="px-4 py-2 font-mono text-xs">let index = minAge</td>
+                            <td class="px-4 py-2">最初に1回だけ実行（カウンタを用意）</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">条件</td>
+                            <td class="px-4 py-2 font-mono text-xs">index &lt;= maxAge</td>
+                            <td class="px-4 py-2">true の間、繰り返す</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2">更新</td>
+                            <td class="px-4 py-2 font-mono text-xs">index++</td>
+                            <td class="px-4 py-2">1回繰り返すごとに 1 増やす</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 text-sm leading-relaxed text-slate-600">
+                繰り返しの中で呼ばれる
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">addOptionTag()</code>
+                は、option タグを1つ作って select に追加する関数です。
+            </p>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">function</span> addOptionTag(age) {
+    <span class="text-sky-300">const</span> option = document.createElement(<span class="text-emerald-300">'option'</span>);   <span class="text-slate-500">// option タグを作る</span>
+    option.value = age;                                   <span class="text-slate-500">// 選んだときの値</span>
+    option.innerHTML = age + <span class="text-emerald-300">' 歳'</span>;                    <span class="text-slate-500">// 画面に表示する文字</span>
+    ageSelect.appendChild(option);                        <span class="text-slate-500">// select の中に追加</span>
+}
+
+<span class="text-slate-500">// 繰り返しのあと、30 歳を選択状態にする</span>
+ageSelect.value = defaultAge;</code></pre>
+        </section>
+
+        <!-- 2. 積立貯金シミュレーター -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">積立貯金シミュレーター</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                貯金が目標金額に届くまで、<strong>while 文</strong>で1か月ずつ計算を繰り返します。
+                何回繰り返すかが決まっていないときは、for 文ではなく while 文を使います。
+            </p>
+
+            <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-5">
+                <div class="grid gap-4 sm:grid-cols-3">
+                    <div>
+                        <label for="annual-deposit" class="block text-sm font-bold text-slate-500">毎月の積立額</label>
+                        <div class="mt-2 flex items-center gap-2">
+                            <input id="annual-deposit" type="number" value="5000" placeholder="積立額"
+                                class="w-full rounded-xl border border-slate-300 px-4 py-3 text-right font-mono text-lg">
+                            <span class="text-sm text-slate-500">円</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="saving-target" class="block text-sm font-bold text-slate-500">目標金額</label>
+                        <div class="mt-2 flex items-center gap-2">
+                            <input id="saving-target" type="number" value="1000000" placeholder="目標金額"
+                                class="w-full rounded-xl border border-slate-300 px-4 py-3 text-right font-mono text-lg">
+                            <span class="text-sm text-slate-500">円</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="saving-interest-rate" class="block text-sm font-bold text-slate-500">年利</label>
+                        <div class="mt-2 flex items-center gap-2">
+                            <input id="saving-interest-rate" type="number" value="1" placeholder="年利率"
+                                class="w-full rounded-xl border border-slate-300 px-4 py-3 text-right font-mono text-lg">
+                            <span class="text-sm text-slate-500">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="calculate-button" onclick="calculateSaving()"
+                    class="mt-4 h-14 w-full rounded-2xl bg-sky-600 text-lg font-bold text-white hover:bg-sky-700 active:scale-95">計算する</button>
+
+                <!-- 結果 -->
+                <div class="mt-4 grid gap-3 sm:grid-cols-3">
+                    <div class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+                        <p class="text-xs font-bold text-slate-500">かかる期間</p>
+                        <p class="mt-1 font-mono text-2xl font-bold">
+                            <span id="year">-</span><span class="text-sm font-normal text-slate-500"> 年 </span><span id="month">-</span><span class="text-sm font-normal text-slate-500"> ヶ月</span>
+                        </p>
+                    </div>
+                    <div class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+                        <p class="text-xs font-bold text-slate-500">預金</p>
+                        <p class="mt-1 font-mono text-2xl font-bold">
+                            <span id="saving">-</span><span class="text-sm font-normal text-slate-500"> 円</span>
+                        </p>
+                    </div>
+                    <div class="rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3">
+                        <p class="text-xs font-bold text-emerald-700">利息</p>
+                        <p class="mt-1 font-mono text-2xl font-bold text-emerald-800">
+                            <span id="interest">-</span><span class="text-sm font-normal text-emerald-700"> 円</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">let</span> month = <span class="text-amber-300">0</span>;
+<span class="text-sky-300">let</span> currentSaving = <span class="text-amber-300">0</span>;
+<span class="text-sky-300">let</span> totalInterest = <span class="text-amber-300">0</span>;
+
+<span class="text-slate-500">// 貯金が目標に届くまで繰り返す</span>
+<span class="text-sky-300">while</span> (currentSaving &lt; savingTarget) {
+    <span class="text-slate-500">// 今月の利息 = 貯金額 × 年利 ÷ 12</span>
+    <span class="text-sky-300">const</span> interestEarned = currentSaving * (interestRate / <span class="text-amber-300">12</span>);
+    totalInterest += interestEarned;                  <span class="text-slate-500">// 累計の利息</span>
+    currentSaving += interestEarned + annualDeposit;  <span class="text-slate-500">// 利息と積立額を足す</span>
+    month++;                                          <span class="text-slate-500">// 月を数える</span>
+}
+
+<span class="text-sky-300">const</span> years = Math.floor(month / <span class="text-amber-300">12</span>);   <span class="text-slate-500">// 年数</span>
+<span class="text-slate-500">// 残りの月数は month % 12</span></code></pre>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">書き方</th>
+                            <th class="px-4 py-2 font-medium">意味</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">while (条件) { ... }</td>
+                            <td class="px-4 py-2">条件が true の間、繰り返す（回数は決まっていない）</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">a += b</td>
+                            <td class="px-4 py-2">a = a + b と同じ（足して代入）</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">month++</td>
+                            <td class="px-4 py-2">month を 1 増やす</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">month % 12</td>
+                            <td class="px-4 py-2">month を 12 で割った余り（残りの月数）</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-xs leading-relaxed text-amber-900">
+                <strong>注意:</strong> while 文は、条件がいつまでも true のままだと<strong>止まらなくなります</strong>（無限ループ）。
+                このシミュレーターでは、積立額が 0 だと、貯金も利息も 0 のまま増えません。
+                そのため、積立額が 0 以下のときは計算を始める前に <code class="font-mono">return</code> で終了しています。
+            </p>
+
+            <p class="mt-3 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                for 文は「回数が決まっているとき」、while 文は「条件を満たすまで」。
+                迷ったら、<strong>何回繰り返すか先にわかるか</strong>で選びましょう。
+            </p>
+        </section>
+
+        <!-- 確認ポイント -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">確認ポイント</h2>
+            <p class="my-2 text-sm text-slate-400">ファイルを修正したら保存して、ブラウザを再読み込みしましょう。反映されないときはスーパーリロード！</p>
+            <ol class="mt-4 space-y-3">
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">1</span>
+                    <p class="text-sm leading-relaxed">プルダウンに <strong>0 歳から 100 歳</strong>までが並び、最初は <strong>30 歳</strong>が選ばれている</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">2</span>
+                    <p class="text-sm leading-relaxed">初期値のまま「計算する」を押すと、期間・預金・利息が表示される</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">3</span>
+                    <p class="text-sm leading-relaxed">積立額を増やすと、<strong>かかる期間が短く</strong>なる</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">4</span>
+                    <p class="text-sm leading-relaxed">年利を上げると、<strong>利息が増えて</strong>期間が短くなる</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">5</span>
+                    <p class="text-sm leading-relaxed">積立額を <strong>0</strong> にして計算すると、メッセージが表示されて、計算は始まらない（無限ループにならない）</p>
+                </li>
+            </ol>
+        </section>
+    </main>
+
+    <script src="js/loop_app.js"></script>
+</body>
+
+</html>

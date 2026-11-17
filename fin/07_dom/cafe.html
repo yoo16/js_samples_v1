@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Blanc</title>
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide (CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-white text-stone-600 antialiased selection:bg-stone-200">
+    <!-- ナビゲーション (上部固定) -->
+    <nav id="navbar"
+        class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white backdrop-blur-md border-b border-white/0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- ロゴ -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="font-serif text-2xl tracking-widest text-stone-800">Café Blanc</span>
+                </div>
+
+                <!-- デスクトップメニュー -->
+                <div class="hidden md:flex space-x-12">
+                    <a href="#concept"
+                        class="text-sm tracking-widest hover:text-stone-900 transition-colors duration-300">CONCEPT</a>
+                    <a href="#menu"
+                        class="text-sm tracking-widest hover:text-stone-900 transition-colors duration-300">MENU</a>
+                    <a href="#gallery"
+                        class="text-sm tracking-widest hover:text-stone-900 transition-colors duration-300">GALLERY</a>
+                    <a href="#access" class="text-sm hover:text-stone-900 transition-colors duration-300">ACCESS</a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-stone-600 hover:text-stone-900 focus:outline-none p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ヒーローセクション (パララックス 1) -->
+    <header class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+        <img id="background-image"
+            class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" />
+        <h1 id="copy"
+            class="backdrop-blur p-4 text-4xl md:text-6xl lg:text-7xl text-black drop-shadow-md tracking-[0.2em] mb-6 leading-tight">
+        </h1>
+
+        <!-- スクロールダウンインジケーター -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-stone-500">
+            <i data-lucide="chevron-down" class="w-8 h-8 opacity-70"></i>
+        </div>
+    </header>
+
+    <!-- 解説 -->
+    <section id="explanation" class="bg-stone-50 py-24">
+        <div class="max-w-5xl mx-auto px-6">
+
+            <!-- 見出し -->
+            <div class="text-center">
+                <p class="text-xs tracking-[0.3em] text-stone-400">HOW IT WORKS</p>
+                <h2 class="mt-4 font-serif text-3xl text-stone-800 tracking-widest">このページの仕組み</h2>
+                <p class="mt-6 text-sm font-light leading-loose text-stone-500">
+                    上のトップ画面では、JavaScript が DOM を操作して、<br class="hidden md:inline">
+                    キャッチコピーを1文字ずつ表示し、背景画像を切り替えています。
+                </p>
+            </div>
+
+            <!-- 1. 1文字ずつ表示 -->
+            <div class="mt-20">
+                <div class="flex items-baseline gap-4">
+                    <span class="font-serif text-4xl text-stone-300">01</span>
+                    <h3 class="font-serif text-xl text-stone-800 tracking-widest">キャッチコピーを1文字ずつ表示する</h3>
+                </div>
+                <p class="mt-4 text-md font-light leading-loose text-stone-500">
+                    文字ごとに span タグを新しく作り、キャッチコピーの要素へ追加します。
+                    これを 0.2 秒ごとに繰り返すと、文字が順番に現れます。
+                </p>
+
+                <div class="mt-8 grid gap-8 md:grid-cols-2">
+                    <!-- コード -->
+                    <pre class="overflow-x-auto bg-stone-900 p-6 font-mono text-xs leading-loose text-stone-300"><code><span class="text-stone-500">// 1. span タグを作る</span>
+<span class="text-amber-200">let</span> span = document.createElement(<span class="text-emerald-300">"span"</span>)
+
+<span class="text-stone-500">// 2. span に index 番目の文字を入れる</span>
+span.textContent = text[index]
+
+<span class="text-stone-500">// 3. span にクラスを追加する</span>
+span.classList.add(<span class="text-emerald-300">"fade-in"</span>)
+
+<span class="text-stone-500">// 4. 見出し(h1)の中にキャッチコピー(span)を追加する</span>
+copyElement.appendChild(span)
+
+<span class="text-stone-500">// 5. 0.2 秒後に、次の文字へ (displayNextChar を呼ぶ)</span>
+setTimeout(() =&gt; displayNextChar(), <span class="text-amber-200">200</span>)</code></pre>
+
+                    <!-- 説明 -->
+                    <div class="overflow-hidden border border-stone-200 bg-white">
+                        <table class="w-full text-sm font-light">
+                            <thead class="border-b border-stone-200 text-left text-xs tracking-widest text-stone-400">
+                                <tr>
+                                    <th class="px-5 py-3 font-normal">書き方</th>
+                                    <th class="px-5 py-3 font-normal">やること</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-stone-100 text-stone-600">
+                                <tr>
+                                    <td class="px-5 py-3 font-mono text-xs">createElement("span")</td>
+                                    <td class="px-5 py-3">新しいタグを作る（まだ画面には出ない）</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-5 py-3 font-mono text-xs">textContent</td>
+                                    <td class="px-5 py-3">タグの中の文字を設定する</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-5 py-3 font-mono text-xs">classList.add()</td>
+                                    <td class="px-5 py-3">class 名を追加する</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-5 py-3 font-mono text-xs">appendChild()</td>
+                                    <td class="px-5 py-3">親の要素の最後に追加する（ここで画面に出る）</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-5 py-3 font-mono text-xs">setTimeout(コールバック, 時間)</td>
+                                    <td class="px-5 py-3">時間（ミリ秒）が過ぎてから、コールバック（実行する関数）を1回だけ実行する。200 = 0.2 秒</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 実行後の HTML -->
+                <h4 class="mt-12 text-sm tracking-widest text-stone-800">実行後の HTML</h4>
+                <p class="mt-3 text-sm font-light leading-loose text-stone-500">
+                    最初の <code class="font-mono text-xs">&lt;h1 id="copy"&gt;</code> は空っぽです。
+                    0.2 秒ごとに span タグが1つずつ追加されて、最後は文字の数（11 個）だけ span が並びます。
+                    DevTools の「Elements」タブで、タグが増えていく様子を確認できます。
+                </p>
+                <div class="mt-6 grid gap-6 md:grid-cols-3">
+                    <div>
+                        <p class="mb-2 text-xs tracking-widest text-stone-400">実行前</p>
+                        <pre class="overflow-x-auto bg-stone-900 p-5 font-mono text-xs leading-loose text-stone-300"><code>&lt;h1 id="copy"&gt;&lt;/h1&gt;</code></pre>
+                    </div>
+                    <div>
+                        <p class="mb-2 text-xs tracking-widest text-stone-400">0.2 秒後（2文字目まで）</p>
+                        <pre class="overflow-x-auto bg-stone-900 p-5 font-mono text-xs leading-loose text-stone-300"><code>&lt;h1 id="copy"&gt;
+    &lt;span class="fade-in"&gt;日&lt;/span&gt;
+    &lt;span class="fade-in"&gt;常&lt;/span&gt;
+    <span class="text-stone-500">&lt;!-- 次の文字が追加されていく --&gt;</span>
+&lt;/h1&gt;</code></pre>
+                    </div>
+                    <div>
+                        <p class="mb-2 text-xs tracking-widest text-stone-400">すべて実行後（11 文字）</p>
+                        <pre class="overflow-x-auto bg-stone-900 p-5 font-mono text-xs leading-loose text-stone-300"><code>&lt;h1 id="copy"&gt;
+    &lt;span class="fade-in"&gt;日&lt;/span&gt;
+    &lt;span class="fade-in"&gt;常&lt;/span&gt;
+    &lt;span class="fade-in"&gt;に&lt;/span&gt;
+    &lt;span class="fade-in"&gt;、&lt;/span&gt;
+    &lt;span class="fade-in"&gt;純&lt;/span&gt;
+    &lt;span class="fade-in"&gt;白&lt;/span&gt;
+    &lt;span class="fade-in"&gt;の&lt;/span&gt;
+    &lt;span class="fade-in"&gt;余&lt;/span&gt;
+    &lt;span class="fade-in"&gt;白&lt;/span&gt;
+    &lt;span class="fade-in"&gt;を&lt;/span&gt;
+    &lt;span class="fade-in"&gt;。&lt;/span&gt;
+&lt;/h1&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. 背景画像の切り替え -->
+            <div class="mt-24">
+                <div class="flex items-baseline gap-4">
+                    <span class="font-serif text-4xl text-stone-300">02</span>
+                    <h3 class="font-serif text-xl text-stone-800 tracking-widest">背景画像をフェードで切り替える</h3>
+                </div>
+                <p class="mt-4 text-md font-light leading-loose text-stone-500">
+                    画像を先に読み込んでおき、読み込みが終わったら、今の画像を透明にしてから新しい画像に差し替えます。
+                    これを 5 秒ごとに繰り返します。
+                </p>
+
+                <div class="mt-8 grid gap-8 md:grid-cols-2">
+                    <!-- コード -->
+                    <pre class="overflow-x-auto bg-stone-900 p-6 font-mono text-xs leading-loose text-stone-300"><code><span class="text-stone-500">// 次の画像のインデックス（最後の次は 0 に戻る）</span>
+imageIndex = (imageIndex + <span class="text-amber-200">1</span>) % images.length
+
+<span class="text-stone-500">// 画像を先に読み込む</span>
+<span class="text-amber-200">let</span> image = document.createElement(<span class="text-emerald-300">'img'</span>)
+image.src = images[imageIndex]
+
+image.onload = () =&gt; {
+    <span class="text-stone-500">// 今の画像を透明にする</span>
+    backgroundImage.style.opacity = <span class="text-amber-200">0</span>
+
+    setTimeout(() =&gt; {
+        <span class="text-stone-500">// 画像を差し替えて、表示する</span>
+        backgroundImage.src = images[imageIndex]
+        backgroundImage.style.opacity = <span class="text-amber-200">1</span>
+    }, <span class="text-amber-200">1000</span>)
+}
+
+<span class="text-stone-500">// 5 秒ごとに繰り返す</span>
+setInterval(switchBackground, <span class="text-amber-200">5000</span>)</code></pre>
+
+                    <!-- 説明 -->
+                    <div class="overflow-hidden border border-stone-200 bg-white">
+                        <table class="w-full text-sm font-light">
+                            <thead class="border-b border-stone-200 text-left text-xs tracking-widest text-stone-400">
+                                <tr>
+                                    <th class="px-5 py-3 font-normal">書き方</th>
+                                    <th class="px-5 py-3 font-normal">やること</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-stone-100 text-stone-600">
+                                <tr>
+                                    <td class="px-5 py-3 font-mono text-xs">% images.length</td>
+                                    <td class="px-5 py-3">余りを使って、0 → 1 → 2 → 0 とぐるぐる回す</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-5 py-3 font-mono text-xs">image.src</td>
+                                    <td class="px-5 py-3">画像のファイルを指定する（読み込みが始まる）</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-5 py-3 font-mono text-xs">image.onload</td>
+                                    <td class="px-5 py-3">読み込みが終わったときに実行する処理</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-5 py-3 font-mono text-xs">style.opacity</td>
+                                    <td class="px-5 py-3">透明度を変える（0 = 透明、1 = 表示）</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-5 py-3 font-mono text-xs">setInterval(コールバック, 時間)</td>
+                                    <td class="px-5 py-3">時間（ミリ秒）ごとに、コールバック（実行する関数）を何度でも実行する。5000 = 5 秒</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 実行後の HTML -->
+                <h4 class="mt-12 text-sm tracking-widest text-stone-800">実行後の HTML</h4>
+                <p class="mt-3 text-sm font-light leading-loose text-stone-500">
+                    背景の <code class="font-mono text-xs">&lt;img&gt;</code> タグは、最初から HTML にあります。
+                    JavaScript はタグを増やさず、<code class="font-mono text-xs">src</code> と
+                    <code class="font-mono text-xs">style</code> の<strong class="font-medium">属性を書き換える</strong>だけです。
+                    DevTools の「Elements」タブで、属性が変わる様子を確認できます。
+                </p>
+                <div class="mt-6 grid gap-6 md:grid-cols-3">
+                    <div>
+                        <p class="mb-2 text-xs tracking-widest text-stone-400">実行前（src なし）</p>
+                        <pre class="overflow-x-auto bg-stone-900 p-5 font-mono text-xs leading-loose text-stone-300"><code>&lt;img id="background-image"
+     class="absolute inset-0 ... opacity-0 transition-opacity duration-1000"
+/&gt;</code></pre>
+                    </div>
+                    <div>
+                        <p class="mb-2 text-xs tracking-widest text-stone-400">読み込み完了直後</p>
+                        <pre class="overflow-x-auto bg-stone-900 p-5 font-mono text-xs leading-loose text-stone-300"><code>&lt;img id="background-image"
+     class="absolute inset-0 ... opacity-0 transition-opacity duration-1000"
+     <span class="text-amber-200">style="opacity: 0"</span>
+/&gt;</code></pre>
+                    </div>
+                    <div>
+                        <p class="mb-2 text-xs tracking-widest text-stone-400">1 秒後（画像を差し替え）</p>
+                        <pre class="overflow-x-auto bg-stone-900 p-5 font-mono text-xs leading-loose text-stone-300"><code>&lt;img id="background-image"
+     class="absolute inset-0 ... opacity-0 transition-opacity duration-1000"
+     <span class="text-amber-200">src="images/cafe-2.avif"</span>
+     <span class="text-amber-200">style="opacity: 1"</span>
+/&gt;</code></pre>
+                    </div>
+                </div>
+                <p class="mt-4 text-md font-light leading-loose text-stone-500">
+                    5 秒後は cafe-3.avif、その次は cafe-1.avif と、<code class="font-mono">src</code> だけが入れ替わります。
+                    1 文字目の表示のあとに最初の切り替えが起きるので、最初に出る画像は cafe-2.avif です。
+                </p>
+
+                <p class="mt-8 border-l-2 border-stone-300 pl-5 text-md font-light leading-loose text-stone-500">
+                    ゆっくり消えて現れるのは、HTML の <code class="font-mono">transition-opacity duration-1000</code> が、
+                    opacity の変化を 1 秒かけて動かしているからです。JavaScript は値を変えるだけで、アニメーションは CSS が担当します。
+                </p>
+            </div>
+
+            <!-- DOM 操作のまとめ -->
+            <div class="mt-24">
+                <div class="flex items-baseline gap-4">
+                    <span class="font-serif text-4xl text-stone-300">03</span>
+                    <h3 class="font-serif text-xl text-stone-800 tracking-widest">使っている DOM 操作</h3>
+                </div>
+
+                <div class="mt-8 grid gap-px bg-stone-200 sm:grid-cols-2 lg:grid-cols-4">
+                    <div class="bg-white p-6">
+                        <p class="text-xs tracking-widest text-stone-400">FIND</p>
+                        <p class="mt-3 font-serif text-lg text-stone-800">探す</p>
+                        <p class="mt-3 font-mono text-xs leading-loose text-stone-500">getElementById()</p>
+                    </div>
+                    <div class="bg-white p-6">
+                        <p class="text-xs tracking-widest text-stone-400">CREATE</p>
+                        <p class="mt-3 font-serif text-lg text-stone-800">作る</p>
+                        <p class="mt-3 font-mono text-xs leading-loose text-stone-500">createElement()</p>
+                    </div>
+                    <div class="bg-white p-6">
+                        <p class="text-xs tracking-widest text-stone-400">CHANGE</p>
+                        <p class="mt-3 font-serif text-lg text-stone-800">変える</p>
+                        <p class="mt-3 font-mono text-xs leading-loose text-stone-500">textContent<br>classList.add()<br>style.opacity<br>src</p>
+                    </div>
+                    <div class="bg-white p-6">
+                        <p class="text-xs tracking-widest text-stone-400">ADD</p>
+                        <p class="mt-3 font-serif text-lg text-stone-800">追加する</p>
+                        <p class="mt-3 font-mono text-xs leading-loose text-stone-500">appendChild()</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- アクセス & フッター -->
+    <footer id="access" class="bg-stone-900 text-stone-300 py-20 relative">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+
+            <!-- 店舗情報 -->
+            <div class="space-y-8 fade-in-section">
+                <div>
+                    <h2 class="font-serif text-3xl text-white tracking-widest mb-2">Café Blanc</h2>
+                    <p class="text-stone-500 text-sm">カフェ・ブラン</p>
+                </div>
+
+                <div class="space-y-2 font-light">
+                    <div class="flex items-start">
+                        <i data-lucide="map-pin" class="w-5 h-5 mr-4 mt-0.5 text-stone-500"></i>
+                        <p>〒150-0001<br>東京都渋谷区神宮前 0-0-0<br>ホワイトヒルズ 1F</p>
+                    </div>
+                    <div class="flex items-center">
+                        <i data-lucide="phone" class="w-5 h-5 mr-4 text-stone-500"></i>
+                        <p>03-1234-5678</p>
+                    </div>
+                    <div class="flex items-center">
+                        <i data-lucide="clock" class="w-5 h-5 mr-4 text-stone-500"></i>
+                        <p>Open 08:00 - Close 20:00 (L.O. 19:30)</p>
+                    </div>
+                    <div class="flex items-center">
+                        <i data-lucide="calendar" class="w-5 h-5 mr-4 text-stone-500"></i>
+                        <p>定休日：水曜日</p>
+                    </div>
+                </div>
+
+                <div class="flex space-x-6 pt-4">
+                    <a href="#" class="hover:text-white transition-colors"><i data-lucide="instagram"
+                            class="w-6 h-6"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i data-lucide="twitter"
+                            class="w-6 h-6"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i data-lucide="facebook"
+                            class="w-6 h-6"></i></a>
+                </div>
+            </div>
+
+            <!-- 地図（プレースホルダー） -->
+            <div
+                class="w-full h-64 bg-stone-800 flex items-center justify-center fade-in-section grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+                <div class="text-center">
+                    <i data-lucide="map" class="w-10 h-10 mx-auto mb-2 text-stone-600"></i>
+                    <p class="text-stone-500 tracking-widest text-sm">GOOGLE MAPS</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-20 border-t border-stone-800 pt-8 text-center">
+            <p class="text-xs text-stone-600 tracking-widest">&copy; 2023 Café Blanc. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/cafe.js"></script>
+</body>
+
+</html>
