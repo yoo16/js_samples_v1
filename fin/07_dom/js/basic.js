@@ -3,6 +3,7 @@
 // ===========================
 // id="greeting" の要素を取得
 const greeting = document.getElementById("greeting");
+const SELECTED_COLOR = "#fde68a";
 
 function setGreeting(text) {
     // 要素の中の文字を書き換える
@@ -44,7 +45,7 @@ function highlightFirst() {
     clearFruits();
     // 最初に見つかった1つだけ取得
     const first = document.querySelector(".fruit");
-    first.style.backgroundColor = "#fde68a";
+    first.style.backgroundColor = SELECTED_COLOR;
 }
 
 function highlightAll() {
@@ -52,17 +53,18 @@ function highlightAll() {
     // 見つかったすべてを取得（複数）
     const fruits = document.querySelectorAll(".fruit");
     fruits.forEach((fruit) => {
-        fruit.style.backgroundColor = "#fde68a";
+        fruit.style.backgroundColor = SELECTED_COLOR;
     });
     // 見つかった数
-    document.getElementById("fruitCount").textContent = `${fruits.length} 件`;
+    const message = `${fruits.length} 件`;
+    document.getElementById("fruitCount").textContent = message;
 }
 
 function highlightSelector(selector) {
     clearFruits();
     // CSS と同じ書き方で指定できる
     const target = document.querySelector(selector);
-    target.style.backgroundColor = "#fde68a";
+    target.style.backgroundColor = SELECTED_COLOR;
 }
 
 function clearFruits() {

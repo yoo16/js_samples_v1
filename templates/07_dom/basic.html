@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM の基本</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-white px-4 text-slate-800">
+    <main class="mx-auto w-full max-w-4xl space-y-6 py-6">
+
+        <!-- ヘッダー -->
+        <header class="rounded-2xl bg-sky-600 px-6 py-8 text-white shadow-xl">
+            <p class="text-xs font-semibold uppercase tracking-widest opacity-80">Lesson 07-1</p>
+            <h1 class="mt-1 text-3xl font-bold">DOM の基本</h1>
+            <p class="mt-2 text-sm opacity-90">HTML の要素を JavaScript で取得して、文字を読み書きする方法を確認します。</p>
+        </header>
+
+        <!-- DOMとは -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">DOM とは</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                ブラウザは、HTML を読み込むと、タグの入れ子の関係を<strong>木</strong>のような形で覚えます。
+                これが <strong>DOM（Document Object Model）</strong>です。
+                JavaScript は DOM を通して、ページの要素を探したり、中身を書き換えたりできます。
+            </p>
+
+            <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                <pre
+                    class="overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">&lt;!-- HTML --&gt;</span>
+&lt;body&gt;
+    &lt;h1 id=<span class="text-emerald-300">"title"</span>&gt;こんにちは&lt;/h1&gt;
+    &lt;p&gt;DOM の説明&lt;/p&gt;
+&lt;/body&gt;</code></pre>
+                <pre
+                    class="overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">// DOM（木の形）</span>
+document
+ └─ body
+     ├─ h1#title  → "こんにちは"
+     └─ p         → "DOM の説明"</code></pre>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                <code class="font-mono">document</code> は、DOM の入り口になるオブジェクトです。
+                要素を探すときは、<code class="font-mono">document.○○()</code> の形で呼び出します。
+            </p>
+        </section>
+
+        <!-- 1. getElementById / textContent -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">1. getElementById() と textContent</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">document.getElementById("id名")</code>
+                で、<strong>id が一致する要素を1つ</strong>取得します。
+                取得した要素の <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">textContent</code> を使うと、中の文字を読み書きできます。
+            </p>
+
+            <!-- デモ -->
+            <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-5">
+                <p id="greeting" class="rounded-xl bg-slate-50 px-4 py-6 text-center text-2xl font-bold">こんにちは</p>
+                <div class="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                    <button class="rounded-xl bg-sky-100 py-3 text-sm font-bold text-sky-900 hover:bg-sky-200 active:scale-95"
+                        onclick="setGreeting('おはよう')">おはよう</button>
+                    <button class="rounded-xl bg-sky-100 py-3 text-sm font-bold text-sky-900 hover:bg-sky-200 active:scale-95"
+                        onclick="setGreeting('こんばんは')">こんばんは</button>
+                    <button class="rounded-xl bg-slate-100 py-3 text-sm font-bold text-slate-700 hover:bg-slate-200 active:scale-95"
+                        onclick="setGreeting('こんにちは')">もとに戻す</button>
+                    <button class="rounded-xl bg-amber-100 py-3 text-sm font-bold text-amber-900 hover:bg-amber-200 active:scale-95"
+                        onclick="readGreeting()">文字を読み取る</button>
+                </div>
+                <p id="greetingLog" class="mt-3 min-h-6 text-sm text-slate-500"></p>
+            </div>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">// id="greeting" の要素を取得</span>
+<span class="text-sky-300">const</span> greeting = document.getElementById(<span class="text-emerald-300">"greeting"</span>);
+
+<span class="text-sky-300">function</span> setGreeting(text) {
+    greeting.textContent = text;          <span class="text-slate-500">// 書き換える</span>
+}
+
+<span class="text-sky-300">function</span> readGreeting() {
+    <span class="text-sky-300">const</span> text = greeting.textContent;   <span class="text-slate-500">// 読み取る</span>
+    document.getElementById(<span class="text-emerald-300">"greetingLog"</span>).textContent = <span class="text-emerald-300">`読み取った文字：${text}`</span>;
+}</code></pre>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">書き方</th>
+                            <th class="px-4 py-2 font-medium">意味</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">document.getElementById("greeting")</td>
+                            <td class="px-4 py-2">id が greeting の要素を取得する（見つからないと null）</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">要素.textContent</td>
+                            <td class="px-4 py-2">要素の中の文字を読み取る</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">要素.textContent = "文字"</td>
+                            <td class="px-4 py-2">要素の中の文字を書き換える</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                取得した要素は、<code class="font-mono">const greeting</code> のように変数に入れておくと、何度も使えます。
+                関数の外で1回だけ取得しておくのが一般的です。
+            </p>
+
+            <p class="mt-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-xs leading-relaxed text-amber-900">
+                <strong>注意:</strong> <code class="font-mono">getElementById("Greeting")</code> のように、
+                id の<strong>大文字・小文字</strong>が違うと見つかりません。
+                また、HTML より先に JavaScript が動くと、要素がまだ無いので取得できません。
+                そのため、<code class="font-mono">&lt;script&gt;</code> は <code class="font-mono">&lt;/body&gt;</code> の直前に書きます。
+            </p>
+        </section>
+
+        <!-- 2. textContent と innerHTML -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">2. textContent と innerHTML の違い</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                どちらも要素の中身を書き換えられますが、<strong>タグの扱い</strong>が違います。
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">textContent</code> はタグも<strong>ただの文字</strong>として表示し、
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">innerHTML</code> はタグを<strong>HTML として解釈</strong>します。
+            </p>
+
+            <!-- デモ -->
+            <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-5">
+                <div class="grid gap-3 sm:grid-cols-2">
+                    <div>
+                        <p class="text-xs font-bold text-slate-500">textContent</p>
+                        <div id="textBox" class="mt-1 min-h-16 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"></div>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-slate-500">innerHTML</p>
+                        <div id="htmlBox" class="mt-1 min-h-16 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3"></div>
+                    </div>
+                </div>
+                <div class="mt-3 grid grid-cols-2 gap-2">
+                    <button class="rounded-xl bg-sky-600 py-3 text-sm font-bold text-white hover:bg-sky-700 active:scale-95"
+                        onclick="showTagString()">同じ文字列を入れる</button>
+                    <button class="rounded-xl bg-slate-100 py-3 text-sm font-bold text-slate-700 hover:bg-slate-200 active:scale-95"
+                        onclick="clearBoxes()">クリア</button>
+                </div>
+            </div>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-sky-300">const</span> tagString = <span class="text-emerald-300">"&lt;strong&gt;太字&lt;/strong&gt;の文字"</span>;
+
+textBox.textContent = tagString;   <span class="text-slate-500">// → &lt;strong&gt;太字&lt;/strong&gt;の文字（そのまま表示）</span>
+htmlBox.innerHTML = tagString;     <span class="text-slate-500">// → 太字の文字（「太字」だけ太くなる）</span></code></pre>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium"></th>
+                            <th class="px-4 py-2 font-medium">textContent</th>
+                            <th class="px-4 py-2 font-medium">innerHTML</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 text-slate-500">タグの扱い</td>
+                            <td class="px-4 py-2">文字として表示</td>
+                            <td class="px-4 py-2">HTML として解釈</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 text-slate-500">使いどころ</td>
+                            <td class="px-4 py-2">ふつうの文字を表示するとき</td>
+                            <td class="px-4 py-2">タグを含む HTML を作るとき</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 text-slate-500">安全性</td>
+                            <td class="px-4 py-2">安全</td>
+                            <td class="px-4 py-2">入力された文字を入れるのは危険</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-md leading-relaxed text-amber-900">
+                <strong>注意:</strong> フォームに入力された文字や、外部から受け取ったデータを
+                <code class="font-mono">innerHTML</code> に入れてはいけません。
+                悪意のあるタグやスクリプトが、そのまま実行されてしまうことがあります（XSS）。
+                迷ったら、まず <code class="font-mono">textContent</code> を使いましょう。
+            </p>
+        </section>
+
+        <!-- 3. querySelector -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">3. querySelector() と querySelectorAll()</h2>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                <code class="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-xs">querySelector("セレクタ")</code>
+                は、<strong>CSS と同じ書き方</strong>で要素を探します。
+                id 以外にも、クラス名やタグ名で探せます。
+                最初に見つかった<strong>1つ</strong>を返すのが querySelector()、
+                見つかった<strong>すべて</strong>を返すのが querySelectorAll() です。
+            </p>
+
+            <!-- デモ -->
+            <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-5">
+                <ul id="fruitList" class="divide-y divide-slate-100 overflow-hidden rounded-xl border border-slate-200 text-lg">
+                    <li class="fruit px-4 py-3">りんご</li>
+                    <li class="fruit px-4 py-3">みかん</li>
+                    <li class="fruit px-4 py-3">ぶどう</li>
+                    <li id="lastFruit" class="fruit px-4 py-3">もも</li>
+                </ul>
+                <div class="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                    <button class="rounded-xl bg-sky-100 py-3 text-sm font-bold text-sky-900 hover:bg-sky-200 active:scale-95"
+                        onclick="highlightFirst()">最初の1つ</button>
+                    <button class="rounded-xl bg-sky-100 py-3 text-sm font-bold text-sky-900 hover:bg-sky-200 active:scale-95"
+                        onclick="highlightAll()">すべて</button>
+                    <button class="rounded-xl bg-sky-100 py-3 text-sm font-bold text-sky-900 hover:bg-sky-200 active:scale-95"
+                        onclick="highlightSelector('#lastFruit')">id で指定</button>
+                    <button class="rounded-xl bg-slate-100 py-3 text-sm font-bold text-slate-700 hover:bg-slate-200 active:scale-95"
+                        onclick="clearFruits()">クリア</button>
+                </div>
+                <p class="mt-3 text-sm text-slate-500">見つかった数：<span id="fruitCount" class="font-bold text-slate-800"></span></p>
+            </div>
+
+            <p class="mt-4 text-sm leading-relaxed text-slate-600">
+                上のリストの HTML は、次のようになっています（見やすいように、見た目用の class は省いています）。
+                <span class="rounded bg-amber-100 px-1 text-amber-900">色付き</span>の部分が、セレクタで探す目印です。
+            </p>
+
+            <pre
+                class="mt-3 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code>&lt;ul id=<span class="text-emerald-300">"fruitList"</span>&gt;
+    &lt;li class=<span class="text-amber-300">"fruit"</span>&gt;りんご&lt;/li&gt;   <span class="text-slate-500">&lt;!-- querySelector(".fruit") で見つかるのは、ここだけ --&gt;</span>
+    &lt;li class=<span class="text-amber-300">"fruit"</span>&gt;みかん&lt;/li&gt;
+    &lt;li class=<span class="text-amber-300">"fruit"</span>&gt;ぶどう&lt;/li&gt;
+    &lt;li id=<span class="text-amber-300">"lastFruit"</span> class=<span class="text-amber-300">"fruit"</span>&gt;もも&lt;/li&gt;   <span class="text-slate-500">&lt;!-- querySelector("#lastFruit") で見つかる --&gt;</span>
+&lt;/ul&gt;                                         <span class="text-slate-500">&lt;!-- querySelectorAll(".fruit") なら、4つすべて --&gt;</span></code></pre>
+
+            <pre
+                class="mt-4 overflow-x-auto rounded-xl bg-slate-900 p-4 font-mono text-xs leading-relaxed text-slate-100"><code><span class="text-slate-500">// 最初に見つかった1つだけ</span>
+<span class="text-sky-300">const</span> first = document.querySelector(<span class="text-emerald-300">".fruit"</span>);
+first.style.backgroundColor = <span class="text-emerald-300">"#fde68a"</span>;
+
+<span class="text-slate-500">// 見つかったすべて（forEach で1つずつ処理）</span>
+<span class="text-sky-300">const</span> fruits = document.querySelectorAll(<span class="text-emerald-300">".fruit"</span>);
+fruits.forEach((fruit) =&gt; {
+    fruit.style.backgroundColor = <span class="text-emerald-300">"#fde68a"</span>;
+});
+console.log(fruits.length);         <span class="text-slate-500">// 見つかった数: 4</span>
+
+<span class="text-slate-500">// id も CSS と同じ # で指定できる</span>
+document.querySelector(<span class="text-emerald-300">"#lastFruit"</span>);</code></pre>
+
+            <div class="mt-5 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">セレクタ</th>
+                            <th class="px-4 py-2 font-medium">意味</th>
+                            <th class="px-4 py-2 font-medium">例</th>
+                            <th class="px-4 py-2 font-medium">見つかるタグ</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">#lastFruit</td>
+                            <td class="px-4 py-2">id が lastFruit の要素</td>
+                            <td class="px-4 py-2 font-mono text-xs">querySelector("#lastFruit")</td>
+                            <td class="px-4 py-2 font-mono text-xs">&lt;li <span class="rounded bg-amber-100 px-1 text-amber-900">id="lastFruit"</span> ...&gt;もも&lt;/li&gt;</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">.fruit</td>
+                            <td class="px-4 py-2">class が fruit の要素</td>
+                            <td class="px-4 py-2 font-mono text-xs">querySelectorAll(".fruit")</td>
+                            <td class="px-4 py-2 font-mono text-xs">&lt;li <span class="rounded bg-amber-100 px-1 text-amber-900">class="fruit"</span>&gt; が 4 つ</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">li</td>
+                            <td class="px-4 py-2">li タグの要素</td>
+                            <td class="px-4 py-2 font-mono text-xs">querySelectorAll("li")</td>
+                            <td class="px-4 py-2 font-mono text-xs">&lt;li&gt; が 4 つ</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">#fruitList li</td>
+                            <td class="px-4 py-2">fruitList の中の li</td>
+                            <td class="px-4 py-2 font-mono text-xs">querySelectorAll("#fruitList li")</td>
+                            <td class="px-4 py-2 font-mono text-xs">&lt;ul id="fruitList"&gt; の中の &lt;li&gt; が 4 つ</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                querySelectorAll() は<strong>複数の要素</strong>を返すので、
+                <code class="font-mono">forEach()</code> で1つずつ処理します。
+                1つしか見つからなくても、結果は複数形（リストのような形）で返ります。
+            </p>
+
+            <p class="mt-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-xs leading-relaxed text-amber-900">
+                <strong>注意:</strong> querySelector() で要素が見つからないと <code class="font-mono">null</code> が返ります。
+                そのまま <code class="font-mono">.textContent</code> などを使うと、エラーになります。
+            </p>
+        </section>
+
+        <!-- まとめ -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">要素を取得する方法の比較</h2>
+            <div class="mt-4 overflow-hidden rounded-xl border border-slate-200">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 text-left text-slate-500">
+                        <tr>
+                            <th class="px-4 py-2 font-medium">メソッド</th>
+                            <th class="px-4 py-2 font-medium">探し方</th>
+                            <th class="px-4 py-2 font-medium">返ってくるもの</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">getElementById("id名")</td>
+                            <td class="px-4 py-2">id（# は付けない）</td>
+                            <td class="px-4 py-2">要素1つ</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">querySelector("セレクタ")</td>
+                            <td class="px-4 py-2">CSS セレクタ</td>
+                            <td class="px-4 py-2">最初の1つ</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-2 font-mono text-xs">querySelectorAll("セレクタ")</td>
+                            <td class="px-4 py-2">CSS セレクタ</td>
+                            <td class="px-4 py-2">すべて（forEach で処理）</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-xs leading-relaxed text-sky-800">
+                id で1つ取得するだけなら <code class="font-mono">getElementById()</code>、
+                クラスなどで探したり、複数取得したりするなら <code class="font-mono">querySelector()</code> /
+                <code class="font-mono">querySelectorAll()</code> が便利です。
+            </p>
+        </section>
+
+        <!-- 確認ポイント -->
+        <section class="rounded-2xl bg-white p-6 shadow">
+            <h2 class="text-lg font-bold">確認ポイント</h2>
+            <p class="my-2 text-sm text-slate-400">ファイルを修正したら保存して、ブラウザを再読み込みしましょう。反映されないときはスーパーリロード！</p>
+            <ol class="mt-4 space-y-3">
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">1</span>
+                    <p class="text-sm leading-relaxed">「おはよう」「こんばんは」を押すと、<strong>文字が書き換わる</strong>。「もとに戻す」で元に戻る</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">2</span>
+                    <p class="text-sm leading-relaxed">「文字を読み取る」を押すと、今表示されている文字が下に表示される</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">3</span>
+                    <p class="text-sm leading-relaxed">「同じ文字列を入れる」を押すと、textContent は<strong>タグごと表示</strong>され、innerHTML は<strong>「太字」だけ太く</strong>なる</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">4</span>
+                    <p class="text-sm leading-relaxed">「最初の1つ」を押すと<strong>りんごだけ</strong>、「すべて」を押すと<strong>4つ全部</strong>に色が付き、「4 件」と表示される</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">5</span>
+                    <p class="text-sm leading-relaxed">「id で指定」を押すと、<strong>もも</strong>だけに色が付く</p>
+                </li>
+                <li class="flex gap-3">
+                    <span
+                        class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">6</span>
+                    <p class="text-sm leading-relaxed">DevTools の Console を開き、<code class="font-mono">document.querySelectorAll(".fruit")</code> と入力すると、4つの li が表示される</p>
+                </li>
+            </ol>
+        </section>
+    </main>
+
+    <script src="js/basic.js"></script>
+</body>
+
+</html>
